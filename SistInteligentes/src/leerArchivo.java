@@ -29,7 +29,7 @@ public class leerArchivo {
 				}
 			}
 			imprimir(terreno);
-			escribirArchivo("terreno.txt",0,3,3,11,3,3,terreno);
+			escribirArchivo("terreno.txt",0,3,3,12,3,3,terreno);
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
