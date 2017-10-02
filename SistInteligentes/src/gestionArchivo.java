@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 
 
-public class leerArchivo {
+public class gestionArchivo {
 	public String cargarArchivo(String file) {
 		String s="";
 		int x, y, k, M, c, f;

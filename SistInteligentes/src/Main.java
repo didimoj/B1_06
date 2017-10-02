@@ -2,7 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
-		leerArchivo yo=new leerArchivo();
+		gestionArchivo yo=new gestionArchivo();
 		yo.cargarArchivo("terreno.txt");
 		System.out.println("Hola");
 	}
