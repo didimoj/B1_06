@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class agente {
 	public static void crearLista(Terreno t) {
+		
 		ArrayList<int[]> lista = new ArrayList<int[]>();
 
 		if (t.tractorX() == 0 && t.tractorY()==0) {
