@@ -1,15 +1,31 @@
 
 public class Terreno {
-	public int tractorX() {
+	private int tractorX;
+	private int tractorY;
+	private int k;
+	private int max;
+	private int[][] terreno;
+	public Terreno(int x, int y, int k, int m, int[][] terreno) {
+		tractorX=x;
+		tractorY=y;
+		this.k=k;
+		max=m;
+		this.terreno=terreno;
 		
-		return x;
+	}
+	public int tractorX() {
+		return tractorX;
 	}
 	public int tractorY() {
-		
-		return y;
+		return tractorY;
+	}
+	public int K() {
+		return k;
+	}
+	public int Max() {
+		return max;
 	}
 	public int size() {
-		
-		return 
+		return terreno[0].length;
 	}
 }

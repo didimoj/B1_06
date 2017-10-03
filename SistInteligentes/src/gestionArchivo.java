@@ -9,16 +9,17 @@ import java.util.Scanner;
 
 
 public class gestionArchivo {
-	public String cargarArchivo(String file) {
+	
+	public void cargarArchivo(String file) {
 		String s="";
-		int x, y, k, M, c, f;
+		int x, y, k, max, c, f;
 		try {
 			FileReader fr = new FileReader(new File(file));
 			Scanner pantalla = new Scanner(fr);
 			x=pantalla.nextInt();
 			y=pantalla.nextInt();
 			k=pantalla.nextInt();
-			M=pantalla.nextInt();
+			max=pantalla.nextInt();
 			c=pantalla.nextInt();
 			f=pantalla.nextInt();
 			
@@ -29,14 +30,15 @@ public class gestionArchivo {
 				}
 			}
 			imprimir(terreno);
+			System.out.println(terreno[0].length);
+			Terreno t = new Terreno(x, y, k, max, terreno);
 			escribirArchivo("terreno.txt",0,3,3,12,3,3,terreno);
 		} catch (Exception e) {
 			System.out.println(e);
-			return null;
 		}
-		return s;
 	}
-	public void escribirArchivo(String path,int x,int y,int k, int M,int c,int f,int[][] terreno) {
+	
+	public void escribirArchivo(String path,int x,int y,int k, int max,int c,int f,int[][] terreno) {
 		File file=new File(path);
 		try {
 			FileWriter fw=new FileWriter(file,false);
@@ -44,7 +46,7 @@ public class gestionArchivo {
 			//bw.newLine();
 			//bw.write("------------------");
 			//bw.newLine();
-			bw.write(x+" "+y+" "+k+" "+M+" "+c+" "+f+"\n ");
+			bw.write(x+" "+y+" "+k+" "+max+" "+c+" "+f+"\n ");
 			bw.newLine();
 			for(int i=0;i<f;i++) {
 				for(int j=0;j<c;j++) {
