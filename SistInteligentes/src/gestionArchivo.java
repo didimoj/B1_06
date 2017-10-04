@@ -30,6 +30,7 @@ public class gestionArchivo {
 				}
 			}
 			imprimir(terreno);
+			System.out.println(x+" "+y);
 			Terreno t = new Terreno(/*x, y, */k, max, terreno);
 			Estado e=new Estado(t,x,y);
 			//escribirArchivo("terreno.txt",0,3,3,12,3,3,terreno);

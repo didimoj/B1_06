@@ -14,7 +14,8 @@ public class Estado {
 	}
 	public void distribucion() {
 		ArrayList l=crearLista();
-		posibilidades(l,0,(t.getCantidad(tractorX, tractorY)-t.K()));
+		ArrayList todas=new ArrayList<>();
+		posibilidades(l,0,(t.getCantidad(tractorX, tractorY)-t.K()),todas);
 	}
 	public static ArrayList<int[]> crearLista() {
 
@@ -27,12 +28,13 @@ public class Estado {
 		} else if (tractorX == 0 && tractorY == t.size()) {			// Esquina inferior izquierda
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
-		
+			System.out.println("Aqui");
 		} else if (tractorX == t.size() && tractorY == 0) {			// Esquina superior derecha
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 		
 		} else if (tractorX == t.size() && tractorY == t.size()) {	// Esquina inferior derecha
+			
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 		}
@@ -80,14 +82,16 @@ public class Estado {
 		}
 		return lista;
 	}
-	public void posibilidades(ArrayList<int[]> L, int in,int cantidad) {
-		ArrayList todas=new ArrayList<>();
-		System.out.println("e");
+	public void posibilidades(ArrayList<int[]> L, int in,int cantidad,ArrayList todas) {
+		
+		
+		
 		for(int n=cantidad;n>=0;n--) {
 			Distribucion d=new Distribucion(n, L.get(in));
 			todas.add(d);
-			posibilidades(L,in+1,cantidad-n);
-			System.out.println(todas.get(in));		
+			System.out.println(todas.get(in));	
+			posibilidades(L,in+1,cantidad-n,todas);
+				
 		}
 		for(int i=0;i<todas.size();i++)
 			System.out.println(todas.get(i));
