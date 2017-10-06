@@ -28,7 +28,7 @@ public class Estado {
 		} else if (tractorX == 0 && tractorY == t.size()) {			// Esquina inferior izquierda
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
-			System.out.println("Aqui");
+			
 		} else if (tractorX == t.size() && tractorY == 0) {			// Esquina superior derecha
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
@@ -47,6 +47,7 @@ public class Estado {
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			lista.add(new int[] { (tractorX + 1), tractorY });
+			System.out.println(tractorX+" "+tractorY+" Aqui"+t.getCantidad(tractorX, tractorY)+" "+t.size());
 			// es decir, si el tractor esta en el borde izquierdo pero no en una esquina
 			// de esta forma tendria tres sitios donde colocar tierra
 			// hacer que se pueda cojer y las combinaciones
@@ -84,17 +85,20 @@ public class Estado {
 	}
 	public void posibilidades(ArrayList<int[]> L, int in,int cantidad,ArrayList todas) {
 		
-		
-		
-		for(int n=cantidad;n>=0;n--) {
-			Distribucion d=new Distribucion(n, L.get(in));
+		for(int i=cantidad;i>=0;i--) {
+			
+			Distribucion d=new Distribucion(i, L.get(in));
 			todas.add(d);
-			System.out.println(todas.get(in));	
-			posibilidades(L,in+1,cantidad-n,todas);
+			System.out.println(d.toString());
+			if(in<L.size()-1)
+				posibilidades(L,in+1,cantidad-i,todas);
+			else
+				i=0;
 				
 		}
-		for(int i=0;i<todas.size();i++)
-			System.out.println(todas.get(i));
+		
+		//for(int i=0;i<todas.size();i++)
+		//	System.out.println(todas.get(i));
 		
 	}
 }

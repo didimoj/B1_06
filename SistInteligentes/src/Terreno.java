@@ -34,6 +34,6 @@ public class Terreno {
 	}
 
 	public int size() {
-		return terreno[0].length;
+		return terreno[0].length-1;
 	}
 }

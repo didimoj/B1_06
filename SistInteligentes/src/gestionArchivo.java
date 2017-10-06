@@ -23,12 +23,14 @@ public class gestionArchivo {
 			c=pantalla.nextInt();
 			f=pantalla.nextInt();
 			
-			int[][] terreno=new int[c][f];
+			int[][] terreno=new int[f][c];
 			for(int i=0;i<f;i++) {
 				for(int j=0;j<c;j++) {
 					terreno[i][j]=pantalla.nextInt();
+					
 				}
 			}
+			System.out.println(terreno[1][0]);
 			imprimir(terreno);
 			System.out.println(x+" "+y);
 			Terreno t = new Terreno(/*x, y, */k, max, terreno);
