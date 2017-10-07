@@ -15,7 +15,10 @@ public class Estado {
 	public void distribucion() {
 		ArrayList l=crearLista();
 		ArrayList todas=new ArrayList<>();
-		posibilidades(l,0,(t.getCantidad(tractorX, tractorY)-t.K()),todas);
+		todas=posibilidades(l,0,(t.getCantidad(tractorX, tractorY)-t.K()),todas);
+		for(int i=0;i<todas.size();i++)
+			System.out.println(todas.get(i));
+		System.out.println(todas.size());
 	}
 	public static ArrayList<int[]> crearLista() {
 
@@ -47,7 +50,7 @@ public class Estado {
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			lista.add(new int[] { (tractorX + 1), tractorY });
-			System.out.println(tractorX+" "+tractorY+" Aqui"+t.getCantidad(tractorX, tractorY)+" "+t.size());
+			System.out.println(tractorX+" "+tractorY+" Aqui"+t.getCantidad(tractorX, tractorY));
 			// es decir, si el tractor esta en el borde izquierdo pero no en una esquina
 			// de esta forma tendria tres sitios donde colocar tierra
 			// hacer que se pueda cojer y las combinaciones
@@ -83,22 +86,32 @@ public class Estado {
 		}
 		return lista;
 	}
-	public void posibilidades(ArrayList<int[]> L, int in,int cantidad,ArrayList todas) {
-		
-		for(int i=cantidad;i>=0;i--) {
-			
-			Distribucion d=new Distribucion(i, L.get(in));
-			todas.add(d);
-			System.out.println(d.toString());
-			if(in<L.size()-1)
-				posibilidades(L,in+1,cantidad-i,todas);
-			else
-				i=0;
+	public ArrayList<Distribucion> posibilidades(ArrayList<int[]> L, int in,int cantidad,ArrayList todas) {
+		Distribucion d;
+		for(int i=0;i<=cantidad;i++) {
+			if(in!=L.size()-1) {
+				 d=new Distribucion(i, L.get(in));
+				 todas.add(d);
+				 posibilidades(L,in+1,cantidad-i,todas);
+			}else {
+				d=new Distribucion(cantidad, L.get(in));
+				todas.add(d);
+				return null;
+				//posibilidades(L,0,cantidad-i,todas);
 				
+			}
+			
+			//System.out.println(d.toString());
+			
+			/*
+			if(in<L.size()-1) {
+				posibilidades(L,in+1,cantidad-i,todas);
+			}else
+				in=0;
+				*/
+			//System.out.println();
 		}
 		
-		//for(int i=0;i<todas.size();i++)
-		//	System.out.println(todas.get(i));
-		
+		return todas;
 	}
 }
