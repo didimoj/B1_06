@@ -31,7 +31,7 @@ public class Estado {
 	}
 	
 	public void DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
-		System.out.println("------- DISTRIBUCCIONES POSIBLES --------");
+		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
 		int index = 0;
 		do {
 			int[] disp = todas1.get(index);
@@ -67,7 +67,7 @@ public class Estado {
 		}
 		// es decir si el tractor esta en una esquina del terreno
 		// si esta en una esquina solo habra dos sitios donde colocarlo
-		// hacer como se puede cojer y hacer las combinaciones de la cantidad menos k
+		// hacer como se puede coger y hacer las combinaciones de la cantidad menos k
 		// entre dos casillas y meterlas en una lista
 
 		else if (tractorX == 0 && tractorY != 0 && tractorY != t.size()) { // Lateral izquierdo
