@@ -6,43 +6,46 @@ public class Estado {
 	private static Terreno t;
 	private static int tractorX;
 	private static int tractorY;
-	public  Estado(Terreno t, int tractorx, int tractory) {
-		this.t=t;
-		tractorX=tractorx;
-		tractorY=tractory;
+
+	public Estado(Terreno t, int tractorx, int tractory) {
+		this.t = t;
+		tractorX = tractorx;
+		tractorY = tractory;
 		distribucion();
 	}
+
 	public void distribucion() {
-		ArrayList l=crearLista();
-		ArrayList todas=new ArrayList<>();
-		ArrayList todas1=new ArrayList<>();
-		todas=posibilidades(l,0,(t.getCantidad(tractorX, tractorY)-t.K()),todas);
-		//for(int i=0;i<todas.size();i++)
-			//System.out.println(todas.get(i));
-		System.out.println(todas.size()+" primera");
-		todas=posibilidades1(l,0,(t.getCantidad(tractorX, tractorY)-t.K()),todas1,0);
-		//for(int i=0;i<todas.size();i++)
-		//	System.out.println(todas1.get(i));
-		System.out.println(todas1.size()+" segunda");
+		ArrayList l = crearLista();
+		ArrayList todas = new ArrayList<>();
+		ArrayList<int[]> todas1 = new ArrayList<>();
+		//todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()), todas);
+		// for(int i=0;i<todas.size();i++)
+		// System.out.println(todas.get(i));
+		System.out.println(todas.size() + " primera");
+		back(new int[l.size()],0,todas1,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		// for(int i=0;i<todas1.size();i++)
+		//	 System.out.println(Arrays.toString(todas1.get(i)));
+		System.out.println(todas1.size() + " segunda");
 	}
+
 	public static ArrayList<int[]> crearLista() {
 
 		ArrayList<int[]> lista = new ArrayList<int[]>();
 
-		if (tractorX == 0 && tractorY == 0) {						// Esquina superior izquierda
+		if (tractorX == 0 && tractorY == 0) { // Esquina superior izquierda
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
-		
-		} else if (tractorX == 0 && tractorY == t.size()) {			// Esquina inferior izquierda
+
+		} else if (tractorX == 0 && tractorY == t.size()) { // Esquina inferior izquierda
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
-			
-		} else if (tractorX == t.size() && tractorY == 0) {			// Esquina superior derecha
+
+		} else if (tractorX == t.size() && tractorY == 0) { // Esquina superior derecha
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
-		
-		} else if (tractorX == t.size() && tractorY == t.size()) {	// Esquina inferior derecha
-			
+
+		} else if (tractorX == t.size() && tractorY == t.size()) { // Esquina inferior derecha
+
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 		}
@@ -51,15 +54,15 @@ public class Estado {
 		// hacer como se puede cojer y hacer las combinaciones de la cantidad menos k
 		// entre dos casillas y meterlas en una lista
 
-		else if (tractorX == 0 && tractorY != 0 && tractorY != t.size()) {			// Lateral izquierdo
+		else if (tractorX == 0 && tractorY != 0 && tractorY != t.size()) { // Lateral izquierdo
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			lista.add(new int[] { (tractorX + 1), tractorY });
-			System.out.println(tractorX+" "+tractorY+" Aqui"+t.getCantidad(tractorX, tractorY));
+			System.out.println(tractorX + " " + tractorY + " Aqui" + t.getCantidad(tractorX, tractorY));
 			// es decir, si el tractor esta en el borde izquierdo pero no en una esquina
 			// de esta forma tendria tres sitios donde colocar tierra
 			// hacer que se pueda cojer y las combinaciones
-		} else if (tractorX == t.size() && tractorY != 0 && tractorY != t.size()) {	// Lateral derecho
+		} else if (tractorX == t.size() && tractorY != 0 && tractorY != t.size()) { // Lateral derecho
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			lista.add(new int[] { (tractorX - 1), tractorY });
@@ -68,14 +71,14 @@ public class Estado {
 			// hacer que se pueda cojer y las combinaciones
 
 			// lo diferencio para que sea automatico y mas facil de cojer luego
-		} else if (tractorY == 0 && tractorX != 0 && tractorX != t.size()) {		// Arriba
+		} else if (tractorY == 0 && tractorX != 0 && tractorX != t.size()) { // Arriba
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			// es decir, si el tractor esta en el borde de arriba pero no en una esquina
 			// de esta forma tendria tres sitios donde colocar tierra
 			// hacer que se pueda cojer y las combinaciones
-		} else if (tractorY == t.size() && tractorX != 0 && tractorX != t.size()) {	// Abajo
+		} else if (tractorY == t.size() && tractorX != 0 && tractorX != t.size()) { // Abajo
 			lista.add(new int[] { (tractorX - 1), tractorY });
 			lista.add(new int[] { (tractorX + 1), tractorY });
 			lista.add(new int[] { tractorX, (tractorY - 1) });
@@ -91,55 +94,87 @@ public class Estado {
 		}
 		return lista;
 	}
-	public ArrayList<Distribucion> posibilidades(ArrayList<int[]> L, int in,int cantidad,ArrayList todas) {
+
+	private void back(int[] actual, int etapa, ArrayList<int[]> sol, int max,int ncasillas) {
+		if (etapa == ncasillas) {
+			if(suma(actual,ncasillas,max)) {
+				sol.add(actual);
+				System.out.println(Arrays.toString(actual));
+			}
+				
+			
+		} else {
+			for (int cantidad = 0; cantidad <= max; cantidad++) {
+				//if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
+					actual[etapa] = cantidad;
+					back(actual, etapa + 1, sol,max,ncasillas);
+				//}
+			}
+		}
+	}
+
+	private boolean suma(int[] actual, int ncasillas, int max) {
+		int suma=0;
+		for(int i=0;i<=ncasillas-1;i++) suma+=actual[i];
+		return suma==max;
+	}
+
+	private boolean vale(int[] actual, int casillas, int cantidad) {
+		//int hay=0;
+		//for(int n=0;n<casillas;n++) hay=hay+actual[n];
+		
+		return actual[casillas]<=cantidad;
+		
+	}
+
+	public ArrayList<Distribucion> posibilidades(ArrayList<int[]> L, int in, int cantidad, ArrayList todas) {
 		Distribucion d;
-		for(int i=0;i<=cantidad;i++) {
-			if(in!=L.size()-1) {
-				 d=new Distribucion(i, L.get(in));
-				 todas.add(d);
-				 posibilidades(L,in+1,cantidad-i,todas);
-			}else {
-				d=new Distribucion(cantidad, L.get(in));
+		for (int i = 0; i <= cantidad; i++) {
+			if (in != L.size() - 1) {
+				d = new Distribucion(i, L.get(in));
+				todas.add(d);
+				posibilidades(L, in + 1, cantidad - i, todas);
+			} else {
+				d = new Distribucion(cantidad, L.get(in));
 				todas.add(d);
 				return null;
-				//posibilidades(L,0,cantidad-i,todas);
-				
+				// posibilidades(L,0,cantidad-i,todas);
+
 			}
-			
-			//System.out.println(d.toString());
-			
+
+			// System.out.println(d.toString());
+
 			/*
-			if(in<L.size()-1) {
-				posibilidades(L,in+1,cantidad-i,todas);
-			}else
-				in=0;
-				*/
-			//System.out.println();
+			 * if(in<L.size()-1) { posibilidades(L,in+1,cantidad-i,todas); }else in=0;
+			 */
+			// System.out.println();
 		}
-		
+
 		return todas;
 	}
-	public ArrayList<ArrayList<Distribucion>> posibilidades1(ArrayList<int[]> L, int in,int cantidad,ArrayList<ArrayList<Distribucion>> todas,int count) {
-			for(int i=0;i<=cantidad;i++) {
+
+	public ArrayList<ArrayList<Distribucion>> posibilidades1(ArrayList<int[]> L, int in, int cantidad,
+			ArrayList<ArrayList<Distribucion>> todas, int count) {
+		for (int i = 0; i <= cantidad; i++) {
 			Distribucion d;
-			
-			if(in<L.size()-1) {
-				 d=new Distribucion(i, L.get(in));
-				 System.out.println(d);
-				 todas.get(count).add(d);
-				posibilidades1(L, in+1, cantidad-i, todas,count);
-			}	else {
-				d=new Distribucion(cantidad, L.get(in));
+
+			if (in < L.size() - 1) {
+				d = new Distribucion(i, L.get(in));
 				System.out.println(d);
 				todas.get(count).add(d);
-				
+				posibilidades1(L, in + 1, cantidad - i, todas, count);
+			} else {
+				d = new Distribucion(cantidad, L.get(in));
+				System.out.println(d);
+				todas.get(count).add(d);
+
 				return null;
-				
+
 			}
 			count++;
-		
+
 		}
-		
+
 		return todas;
 	}
 }
