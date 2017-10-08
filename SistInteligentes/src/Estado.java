@@ -31,7 +31,7 @@ public class Estado {
 	}
 	
 	public void DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
-		System.out.println("------ DISTRIBUCCIONES POSIBLES -------");
+		System.out.println("------- DISTRIBUCCIONES POSIBLES --------");
 		int index = 0;
 		do {
 			int[] disp = todas1.get(index);
