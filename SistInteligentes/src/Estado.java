@@ -6,6 +6,7 @@ public class Estado {
 	private static Terreno t;
 	private static int tractorX;
 	private static int tractorY;
+	private static ArrayList<int[]>  sol = new ArrayList<>();
 
 	public Estado(Terreno t, int tractorx, int tractory) {
 		this.t = t;
@@ -17,15 +18,15 @@ public class Estado {
 	public void distribucion() {
 		ArrayList l = crearLista();
 		ArrayList todas = new ArrayList<>();
-		ArrayList<int[]> todas1 = new ArrayList<>();
+		
 		//todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()), todas);
 		// for(int i=0;i<todas.size();i++)
 		// System.out.println(todas.get(i));
 		System.out.println(todas.size() + " primera");
-		back(new int[l.size()],0,todas1,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
-		// for(int i=0;i<todas1.size();i++)
-		//	 System.out.println(Arrays.toString(todas1.get(i)));
-		System.out.println(todas1.size() + " segunda");
+		back(new int[l.size()],0,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		 for(int i=0;i<sol.size();i++)
+			 System.out.println(Arrays.toString(sol.get(i)));
+		System.out.println(sol.size() + " segunda");
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -95,19 +96,22 @@ public class Estado {
 		return lista;
 	}
 
-	private void back(int[] actual, int etapa, ArrayList<int[]> sol, int max,int ncasillas) {
+	private void back(int[] actual, int etapa, int max,int ncasillas) {
 		if (etapa == ncasillas) {
 			if(suma(actual,ncasillas,max)) {
-				sol.add(actual);
-				System.out.println(Arrays.toString(actual));
+				int copia[]=new int[actual.length];
+				System.arraycopy(actual,0,copia,0,actual.length);
+				sol.add(copia);
+				
+				//System.out.println(Arrays.toString(actual));
 			}
 				
 			
 		} else {
 			for (int cantidad = 0; cantidad <= max; cantidad++) {
-				//if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
+			//	if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
 					actual[etapa] = cantidad;
-					back(actual, etapa + 1, sol,max,ncasillas);
+					back(actual, etapa + 1, max,ncasillas);
 				//}
 			}
 		}
@@ -120,10 +124,10 @@ public class Estado {
 	}
 
 	private boolean vale(int[] actual, int casillas, int cantidad) {
-		//int hay=0;
-		//for(int n=0;n<casillas;n++) hay=hay+actual[n];
+		int hay=0;
+		for(int n=0;n<casillas;n++) hay=hay+actual[n];
 		
-		return actual[casillas]<=cantidad;
+		return hay+cantidad<=cantidad;
 		
 	}
 
