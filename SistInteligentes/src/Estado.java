@@ -15,17 +15,33 @@ public class Estado {
 	}
 
 	public void distribucion() {
-		ArrayList l = crearLista();
+		ArrayList<int[]> l = crearLista();
 		ArrayList todas = new ArrayList<>();
 		ArrayList<int[]> todas1 = new ArrayList<>();
 		//todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()), todas);
 		// for(int i=0;i<todas.size();i++)
 		// System.out.println(todas.get(i));
 		System.out.println(todas.size() + " primera");
-		back(new int[l.size()],0,todas1,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		todas1 = back(new int[l.size()],0,todas1,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		
+		DistPos(l, todas1);
 		// for(int i=0;i<todas1.size();i++)
 		//	 System.out.println(Arrays.toString(todas1.get(i)));
 		System.out.println(todas1.size() + " segunda");
+	}
+	
+	public void DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
+		System.out.println("------ DISTRIBUCCIONES POSIBLES -------");
+		int index = 0;
+		do {
+			int[] disp = todas1.get(index);
+			for (int i = 0; i < l.size(); i++) {
+				int[] pos = l.get(i);
+				System.out.println(disp[i]+" a "+Arrays.toString(pos));
+			}
+			System.out.println();
+			index++;
+		}while(index < todas1.size());
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -95,10 +111,12 @@ public class Estado {
 		return lista;
 	}
 
-	private void back(int[] actual, int etapa, ArrayList<int[]> sol, int max,int ncasillas) {
+	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max,int ncasillas) {
+		int[] copia = new int[actual.length];
 		if (etapa == ncasillas) {
 			if(suma(actual,ncasillas,max)) {
-				sol.add(actual);
+				System.arraycopy(actual, 0, copia, 0, actual.length);
+				sol.add(copia);
 				System.out.println(Arrays.toString(actual));
 			}
 				
@@ -111,11 +129,12 @@ public class Estado {
 				//}
 			}
 		}
+		return sol;
 	}
 
 	private boolean suma(int[] actual, int ncasillas, int max) {
 		int suma=0;
-		for(int i=0;i<=ncasillas-1;i++) suma+=actual[i];
+		for(int i=0;i<ncasillas;i++) suma+=actual[i];
 		return suma==max;
 	}
 

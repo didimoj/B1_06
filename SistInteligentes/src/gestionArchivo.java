@@ -30,7 +30,7 @@ public class gestionArchivo {
 					
 				}
 			}
-			
+			pantalla.close();
 			imprimir(terreno);
 			
 			Terreno t = new Terreno(/*x, y, */k, max, terreno);
