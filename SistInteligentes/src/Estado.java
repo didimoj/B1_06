@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Estado {
 	private static Terreno t;
@@ -17,15 +18,20 @@ public class Estado {
 	public void distribucion() {
 		ArrayList l = crearLista();
 		ArrayList todas = new ArrayList<>();
-		ArrayList<int[]> todas1 = new ArrayList<>();
+		//ArrayList<int[]> todas1 = new ArrayList<int[]>();
+		Stack<int[]> todas1 = new Stack<int[]>();
+		int[] elemento = null;
 		//todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()), todas);
 		// for(int i=0;i<todas.size();i++)
 		// System.out.println(todas.get(i));
 		System.out.println(todas.size() + " primera");
 		back(new int[l.size()],0,todas1,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
-		// for(int i=0;i<todas1.size();i++)
-		//	 System.out.println(Arrays.toString(todas1.get(i)));
-		System.out.println(todas1.size() + " segunda");
+		System.out.println(todas1.size() + " segunda\n");
+		
+		while(todas1.empty() == false) {
+			elemento = todas1.pop();
+			System.out.println(elemento);
+		}
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -95,11 +101,13 @@ public class Estado {
 		return lista;
 	}
 
-	private void back(int[] actual, int etapa, ArrayList<int[]> sol, int max,int ncasillas) {
+	private void back(int[] actual, int etapa, Stack<int[]> sol, int max,int ncasillas) {
 		if (etapa == ncasillas) {
 			if(suma(actual,ncasillas,max)) {
-				sol.add(actual);
-				System.out.println(Arrays.toString(actual));
+				sol.push(actual);
+				System.out.println("Actual: " + Arrays.toString(actual));
+				//for(int h=0; h<sol.size(); h++)
+					//System.out.println("Lista solución: " + Arrays.toString(sol.get(h)));
 			}
 				
 			
