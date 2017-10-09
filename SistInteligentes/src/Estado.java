@@ -6,7 +6,6 @@ public class Estado {
 	private static Terreno t;
 	private static int tractorX;
 	private static int tractorY;
-	private static ArrayList<int[]>  sol = new ArrayList<>();
 
 	public Estado(Terreno t, int tractorx, int tractory) {
 		this.t = t;
@@ -16,17 +15,37 @@ public class Estado {
 	}
 
 	public void distribucion() {
-		ArrayList l = crearLista();
+		ArrayList<int[]> l = crearLista();
 		ArrayList todas = new ArrayList<>();
-		
-		//todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()), todas);
+		ArrayList<int[]> todas1 = new ArrayList<>();
+		// todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()),
+		// todas);
 		// for(int i=0;i<todas.size();i++)
 		// System.out.println(todas.get(i));
 		System.out.println(todas.size() + " primera");
-		back(new int[l.size()],0,  (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
-		 for(int i=0;i<sol.size();i++)
-			 System.out.println(Arrays.toString(sol.get(i)));
-		System.out.println(sol.size() + " segunda");
+		todas1 = back(new int[l.size()], 0, todas1, (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
+		for (int i = 0; i < l.size(); i++) {
+			System.out.println("El tractor se mueve a " + Arrays.toString(l.get(i)));
+			DistPos(l, todas1);
+		}
+		// for(int i=0;i<todas1.size();i++)
+		// System.out.println(Arrays.toString(todas1.get(i)));
+		System.out.println(todas1.size() + " segunda");
+	}
+
+	public void DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
+
+		int index = 0;
+		do {
+			int[] disp = todas1.get(index);
+			for (int i = 0; i < l.size(); i++) {
+				int[] pos = l.get(i);
+				System.out.println(disp[i] + " a " + Arrays.toString(pos));
+			}
+			System.out.println();
+			index++;
+		} while (index < todas1.size());
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -52,7 +71,7 @@ public class Estado {
 		}
 		// es decir si el tractor esta en una esquina del terreno
 		// si esta en una esquina solo habra dos sitios donde colocarlo
-		// hacer como se puede cojer y hacer las combinaciones de la cantidad menos k
+		// hacer como se puede coger y hacer las combinaciones de la cantidad menos k
 		// entre dos casillas y meterlas en una lista
 
 		else if (tractorX == 0 && tractorY != 0 && tractorY != t.size()) { // Lateral izquierdo
@@ -96,39 +115,39 @@ public class Estado {
 		return lista;
 	}
 
-	private void back(int[] actual, int etapa, int max,int ncasillas) {
+	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max, int ncasillas) {
+		int[] copia = new int[actual.length];
 		if (etapa == ncasillas) {
-			if(suma(actual,ncasillas,max)) {
-				int copia[]=new int[actual.length];
-				System.arraycopy(actual,0,copia,0,actual.length);
+			if (suma(actual, ncasillas, max)) {
+				System.arraycopy(actual, 0, copia, 0, actual.length);
 				sol.add(copia);
-				
-				//System.out.println(Arrays.toString(actual));
+				System.out.println(Arrays.toString(actual));
 			}
-				
-			
+
 		} else {
 			for (int cantidad = 0; cantidad <= max; cantidad++) {
-			//	if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
-					actual[etapa] = cantidad;
-					back(actual, etapa + 1, max,ncasillas);
-				//}
+				// if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
+				actual[etapa] = cantidad;
+				back(actual, etapa + 1, sol, max, ncasillas);
+				// }
 			}
 		}
+		return sol;
 	}
 
 	private boolean suma(int[] actual, int ncasillas, int max) {
-		int suma=0;
-		for(int i=0;i<=ncasillas-1;i++) suma+=actual[i];
-		return suma==max;
+		int suma = 0;
+		for (int i = 0; i < ncasillas; i++)
+			suma += actual[i];
+		return suma == max;
 	}
 
 	private boolean vale(int[] actual, int casillas, int cantidad) {
-		int hay=0;
-		for(int n=0;n<casillas;n++) hay=hay+actual[n];
-		
-		return hay+cantidad<=cantidad;
-		
+		// int hay=0;
+		// for(int n=0;n<casillas;n++) hay=hay+actual[n];
+
+		return actual[casillas] <= cantidad;
+
 	}
 
 	public ArrayList<Distribucion> posibilidades(ArrayList<int[]> L, int in, int cantidad, ArrayList todas) {
