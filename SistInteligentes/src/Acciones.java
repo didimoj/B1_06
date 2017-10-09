@@ -5,6 +5,7 @@ public class Acciones {
 	private int dist[];
 	public Acciones(int[] m, int[] d) {
 		mov=m;
+		
 		dist=d;
 	}
 	

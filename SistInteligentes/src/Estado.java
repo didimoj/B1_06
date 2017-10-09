@@ -41,6 +41,7 @@ public class Estado {
 			cant = (t.getCantidad(tractorX, tractorY) - t.K());
 		else
 			cant = (t.getCantidad(tractorX, tractorY));
+		
 		todas1 = back(new int[l.size()], 0, todas1, cant, l.size());
 		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
 
