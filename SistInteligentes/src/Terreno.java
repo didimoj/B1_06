@@ -28,6 +28,9 @@ public class Terreno {
 	public int K() {
 		return k;
 	}
+	public int[][] getTerreno(){
+		return terreno;
+	}
 
 	public int Max() {
 		return max;

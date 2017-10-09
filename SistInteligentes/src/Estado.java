@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Estado {
 	private static Terreno t;
@@ -12,40 +13,70 @@ public class Estado {
 		tractorX = tractorx;
 		tractorY = tractory;
 		distribucion();
+
+	}
+
+	public void crearEstado(ArrayList<int[]> l, ArrayList<int[]> todas1, Acciones a) {
+		int[][] nuevo = new int[t.size() + 1][t.size() + 1];
+		for (int f = 0; f < nuevo.length; f++)
+			System.arraycopy(t.getTerreno()[f], 0, nuevo[f], 0, nuevo[f].length);
+
+		for (int i = 0; i < l.size(); i++) {
+			System.out.println(a.getDist()[i]);
+			nuevo[l.get(i)[0]][l.get(i)[1]] = t.getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
+		}
+		nuevo[tractorX][tractorY] = t.K();
+		Terreno n = new Terreno(t.K(), t.Max(), nuevo);
+		imprimir(nuevo);
+		// System.out.println(a.getMov()[0]+" "+a.getMov()[1]);
+		Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
 	}
 
 	public void distribucion() {
 		ArrayList<int[]> l = crearLista();
 		ArrayList todas = new ArrayList<>();
 		ArrayList<int[]> todas1 = new ArrayList<>();
-		// todas = posibilidades(l, 0, (t.getCantidad(tractorX, tractorY) - t.K()),
-		// todas);
-		// for(int i=0;i<todas.size();i++)
-		// System.out.println(todas.get(i));
-		System.out.println(todas.size() + " primera");
-		todas1 = back(new int[l.size()], 0, todas1, (t.getCantidad(tractorX, tractorY) - t.K()), l.size());
+		int cant;
+		if ((t.getCantidad(tractorX, tractorY) > t.K()))
+			cant = (t.getCantidad(tractorX, tractorY) - t.K());
+		else
+			cant = (t.getCantidad(tractorX, tractorY));
+		todas1 = back(new int[l.size()], 0, todas1, cant, l.size());
 		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
-		for (int i = 0; i < l.size(); i++) {
-			System.out.println("El tractor se mueve a " + Arrays.toString(l.get(i)));
-			DistPos(l, todas1);
-		}
-		// for(int i=0;i<todas1.size();i++)
-		// System.out.println(Arrays.toString(todas1.get(i)));
-		System.out.println(todas1.size() + " segunda");
+
+		// System.out.println("El tractor se mueve a " + Arrays.toString(l.get(i)));
+		// System.out.println(l.size()+" "+todas1.size());
+		ArrayList<Acciones> candidatos = DistPos(l, todas1);
+		Random r = new Random();
+		// System.out.println(candidatos.size()+ " EL RANDOM");
+
+		int k = r.nextInt(candidatos.size());
+
+		System.out.println("Realizar accion: " + candidatos.get(k));
+		crearEstado(l, todas1, candidatos.get(k));
 	}
 
-	public void DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
-
+	public ArrayList<Acciones> DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
+		ArrayList<Acciones> candidatos = new ArrayList<>();
 		int index = 0;
 		do {
-			int[] disp = todas1.get(index);
-			for (int i = 0; i < l.size(); i++) {
-				int[] pos = l.get(i);
-				System.out.println(disp[i] + " a " + Arrays.toString(pos));
+			for (int k = 0; k < l.size() && index < todas1.size(); k++) {
+				int[] disp = todas1.get(index);
+				for (int i = 0; i < l.size() && index < todas1.size(); i++) {
+					int[] mov = l.get(k);
+					int[] pos = l.get(i);
+					// System.out.println(Arrays.toString(todas1.get(i))+"
+					// "+Arrays.toString(l.get(i)));
+					Acciones a = new Acciones(mov, todas1.get(i));
+					candidatos.add(a);
+					// System.out.println(a);
+					// System.out.println(disp[i] + " a " + Arrays.toString(pos));
+				}
+				// System.out.println();
+				index++;
 			}
-			System.out.println();
-			index++;
 		} while (index < todas1.size());
+		return candidatos;
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -78,7 +109,7 @@ public class Estado {
 			lista.add(new int[] { tractorX, (tractorY - 1) });
 			lista.add(new int[] { tractorX, (tractorY + 1) });
 			lista.add(new int[] { (tractorX + 1), tractorY });
-			System.out.println(tractorX + " " + tractorY + " Aqui" + t.getCantidad(tractorX, tractorY));
+
 			// es decir, si el tractor esta en el borde izquierdo pero no en una esquina
 			// de esta forma tendria tres sitios donde colocar tierra
 			// hacer que se pueda cojer y las combinaciones
@@ -120,8 +151,9 @@ public class Estado {
 		if (etapa == ncasillas) {
 			if (suma(actual, ncasillas, max)) {
 				System.arraycopy(actual, 0, copia, 0, actual.length);
+				Arrays.toString(copia);
 				sol.add(copia);
-				System.out.println(Arrays.toString(actual));
+
 			}
 
 		} else {
@@ -150,54 +182,12 @@ public class Estado {
 
 	}
 
-	public ArrayList<Distribucion> posibilidades(ArrayList<int[]> L, int in, int cantidad, ArrayList todas) {
-		Distribucion d;
-		for (int i = 0; i <= cantidad; i++) {
-			if (in != L.size() - 1) {
-				d = new Distribucion(i, L.get(in));
-				todas.add(d);
-				posibilidades(L, in + 1, cantidad - i, todas);
-			} else {
-				d = new Distribucion(cantidad, L.get(in));
-				todas.add(d);
-				return null;
-				// posibilidades(L,0,cantidad-i,todas);
-
+	public static void imprimir(int[][] solar) {
+		for (int i = 0; i < solar.length; i++) {
+			for (int j = 0; j < solar.length; j++) {
+				System.out.print(solar[i][j] + "\t");
 			}
-
-			// System.out.println(d.toString());
-
-			/*
-			 * if(in<L.size()-1) { posibilidades(L,in+1,cantidad-i,todas); }else in=0;
-			 */
-			// System.out.println();
+			System.out.println();
 		}
-
-		return todas;
-	}
-
-	public ArrayList<ArrayList<Distribucion>> posibilidades1(ArrayList<int[]> L, int in, int cantidad,
-			ArrayList<ArrayList<Distribucion>> todas, int count) {
-		for (int i = 0; i <= cantidad; i++) {
-			Distribucion d;
-
-			if (in < L.size() - 1) {
-				d = new Distribucion(i, L.get(in));
-				System.out.println(d);
-				todas.get(count).add(d);
-				posibilidades1(L, in + 1, cantidad - i, todas, count);
-			} else {
-				d = new Distribucion(cantidad, L.get(in));
-				System.out.println(d);
-				todas.get(count).add(d);
-
-				return null;
-
-			}
-			count++;
-
-		}
-
-		return todas;
 	}
 }
