@@ -1,4 +1,3 @@
-
 public class Terreno {
 	//private int tractorX;
 	//private int tractorY;
@@ -17,7 +16,6 @@ public class Terreno {
 	public int tractorX() {
 		return tractorX;
 	}
-
 	public int tractorY() {
 		return tractorY;
 	}
@@ -27,6 +25,9 @@ public class Terreno {
 	}
 	public int K() {
 		return k;
+	}
+	public int[][] getTerreno(){
+		return terreno;
 	}
 
 	public int Max() {
