@@ -49,7 +49,8 @@ public class Estado {
 
 		// System.out.println("El tractor se mueve a " + Arrays.toString(l.get(i)));
 		// System.out.println(l.size()+" "+todas1.size());
-		ArrayList<Acciones> candidatos = DistPos(l, todas1);
+		ArrayList<Acciones> candidatos = Distpos(l, todas1);
+		System.out.println(candidatos.size());
 		Random r = new Random();
 		// System.out.println(candidatos.size()+ " EL RANDOM");
 
@@ -58,20 +59,35 @@ public class Estado {
 		System.out.println("Realizar accion: " + candidatos.get(k));
 		crearEstado(l, todas1, candidatos.get(k));
 	}
-
+	public ArrayList<Acciones> Distpos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
+		ArrayList<Acciones> candidatos = new ArrayList<>();
+		for(int i=0;i<l.size();i++) {
+			for(int j=0;j<todas1.size();j++) {
+				Acciones a = new Acciones(l.get(i), todas1.get(j));
+				//System.out.println(todas1.get(j)[i]);
+				//si se puede añadir, sino al carrer
+				if(t.getTerreno()[l.get(i)[0]][l.get(i)[1]]+todas1.get(j)[i]<t.Max()) {
+				candidatos.add(a);
+				System.out.println(a);
+				}
+			}
+		}
+		return candidatos;
+	}
 	public ArrayList<Acciones> DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
 		ArrayList<Acciones> candidatos = new ArrayList<>();
 		int index = 0;
 		do {
 			for (int k = 0; k < l.size(); k++) {
 				//int[] disp = todas1.get(index);
-				for (int i = 0; i < todas1.size(); i++) {
+				for (int i = 0; i < l.size(); i++) {
 					int[] mov = l.get(k);
 					int[] pos = l.get(i);
 					// System.out.println(Arrays.toString(todas1.get(i))+"
 					// "+Arrays.toString(l.get(i)));
 					Acciones a = new Acciones(mov, todas1.get(i));
 					candidatos.add(a);
+					
 					System.out.println(a);
 					// System.out.println(disp[i] + " a " + Arrays.toString(pos));
 					
