@@ -22,19 +22,24 @@ public class gestionArchivo {
 			max=pantalla.nextInt();
 			c=pantalla.nextInt();
 			f=pantalla.nextInt();
-			
+			int cantidad=0;
 			int[][] terreno=new int[f][c];
 			for(int i=0;i<f;i++) {
 				for(int j=0;j<c;j++) {
 					terreno[i][j]=pantalla.nextInt();
-					
+					cantidad+=terreno[i][j];
 				}
 			}
 			pantalla.close();
+			if(cantidad==c*f*k) {
 			imprimir(terreno);
 			
 			Terreno t = new Terreno(/*x, y, */k, max, terreno);
+			
 			Estado e=new Estado(t,x,y);
+			}else {
+				System.out.println("La cantidad de arena a distribuir no es correcta");
+			}
 			//escribirArchivo("terreno.txt",0,3,3,12,3,3,terreno);
 		} catch (Exception e) {
 			System.out.println(e);

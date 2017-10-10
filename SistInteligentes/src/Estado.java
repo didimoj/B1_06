@@ -12,8 +12,9 @@ public class Estado {
 		this.t = t;
 		tractorX = tractorx;
 		tractorY = tractory;
+		//System.out.println("Estoy en "+tractorx+" "+tractory);
 		distribucion();
-
+		
 	}
 
 	public void crearEstado(ArrayList<int[]> l, ArrayList<int[]> todas1, Acciones a) {
@@ -22,14 +23,14 @@ public class Estado {
 			System.arraycopy(t.getTerreno()[f], 0, nuevo[f], 0, nuevo[f].length);
 
 		for (int i = 0; i < l.size(); i++) {
-			System.out.println(a.getDist()[i]);
+			//System.out.println(a.getDist()[i]);
 			nuevo[l.get(i)[0]][l.get(i)[1]] = t.getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
 		}
 		nuevo[tractorX][tractorY] = t.K();
-		Terreno n = new Terreno(t.K(), t.Max(), nuevo);
-		imprimir(nuevo);
+		//Terreno n = new Terreno(t.K(), t.Max(), nuevo);
+		//imprimir(nuevo);
 		// System.out.println(a.getMov()[0]+" "+a.getMov()[1]);
-		Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
+		//Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
 	}
 
 	public void distribucion() {
@@ -40,7 +41,8 @@ public class Estado {
 		if ((t.getCantidad(tractorX, tractorY) > t.K()))
 			cant = (t.getCantidad(tractorX, tractorY) - t.K());
 		else
-			cant = (t.getCantidad(tractorX, tractorY));
+			cant=0;
+			//cant = (t.getCantidad(tractorX, tractorY));
 		
 		todas1 = back(new int[l.size()], 0, todas1, cant, l.size());
 		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
@@ -61,20 +63,22 @@ public class Estado {
 		ArrayList<Acciones> candidatos = new ArrayList<>();
 		int index = 0;
 		do {
-			for (int k = 0; k < l.size() && index < todas1.size(); k++) {
-				int[] disp = todas1.get(index);
-				for (int i = 0; i < l.size() && index < todas1.size(); i++) {
+			for (int k = 0; k < l.size(); k++) {
+				//int[] disp = todas1.get(index);
+				for (int i = 0; i < todas1.size(); i++) {
 					int[] mov = l.get(k);
 					int[] pos = l.get(i);
 					// System.out.println(Arrays.toString(todas1.get(i))+"
 					// "+Arrays.toString(l.get(i)));
 					Acciones a = new Acciones(mov, todas1.get(i));
 					candidatos.add(a);
-					// System.out.println(a);
+					System.out.println(a);
 					// System.out.println(disp[i] + " a " + Arrays.toString(pos));
+					
 				}
-				// System.out.println();
 				index++;
+				// System.out.println();
+				
 			}
 		} while (index < todas1.size());
 		return candidatos;
