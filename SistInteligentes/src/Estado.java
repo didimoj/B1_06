@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -17,7 +16,7 @@ public class Estado {
 
 	}
 
-	public void crearEstado(ArrayList<int[]> l, ArrayList<int[]> todas1, Acciones a) {
+	public void crearEstado(ArrayList<int[]> l, Acciones a) {
 		int[][] nuevo = new int[t.size() + 1][t.size() + 1];
 		for (int f = 0; f < nuevo.length; f++)
 			System.arraycopy(t.getTerreno()[f], 0, nuevo[f], 0, nuevo[f].length);
@@ -25,16 +24,17 @@ public class Estado {
 		for (int i = 0; i < l.size(); i++) {
 			nuevo[l.get(i)[0]][l.get(i)[1]] = t.getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
 		}
-		nuevo[tractorX][tractorY] = t.K();
-		// Terreno n = new Terreno(t.K(), t.Max(), nuevo);
-		// imprimir(nuevo);
-		// System.out.println(a.getMov()[0]+" "+a.getMov()[1]);
-		// Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
+		if(nuevo[tractorX][tractorY]>t.K())
+			nuevo[tractorX][tractorY] = t.K();
+					
+		 Terreno n = new Terreno(t.K(), t.Max(), nuevo);
+		 imprimir(nuevo);
+		
+		 Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
 	}
 
 	public void distribucion() {
 		ArrayList<int[]> l = crearLista();
-		ArrayList todas = new ArrayList<>();
 		ArrayList<int[]> todas1 = new ArrayList<>();
 		int cant;
 		if ((t.getCantidad(tractorX, tractorY) > t.K()))
@@ -54,7 +54,7 @@ public class Estado {
 		int k = r.nextInt(candidatos.size());
 
 		System.out.println("Realizar accion: " + candidatos.get(k));
-		crearEstado(l, todas1, candidatos.get(k));
+		crearEstado(l, candidatos.get(k));
 
 	}
 
