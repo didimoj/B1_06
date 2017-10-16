@@ -27,6 +27,6 @@ public class Acciones {
 
 	@Override
 	public String toString() {
-		return "Acciones [mov=" + Arrays.toString(mov) + ", dist=" + Arrays.toString(dist) + "]";
+		return "Acciones [Movimiento=" + Arrays.toString(mov) + ", Distribucion=" + Arrays.toString(dist) + "], Coste: 1";
 	}
 }

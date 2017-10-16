@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -12,72 +11,81 @@ public class Estado {
 		this.t = t;
 		tractorX = tractorx;
 		tractorY = tractory;
-		distribucion();
-
 	}
 
-	public void crearEstado(ArrayList<int[]> l, ArrayList<int[]> todas1, Acciones a) {
+	public void crearEstado(ArrayList<int[]> l, Acciones a) {
 		int[][] nuevo = new int[t.size() + 1][t.size() + 1];
 		for (int f = 0; f < nuevo.length; f++)
 			System.arraycopy(t.getTerreno()[f], 0, nuevo[f], 0, nuevo[f].length);
 
 		for (int i = 0; i < l.size(); i++) {
-			System.out.println(a.getDist()[i]);
 			nuevo[l.get(i)[0]][l.get(i)[1]] = t.getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
 		}
-		nuevo[tractorX][tractorY] = t.K();
+		if (nuevo[tractorX][tractorY] > t.K())
+			nuevo[tractorX][tractorY] = t.K();
+
 		Terreno n = new Terreno(t.K(), t.Max(), nuevo);
 		imprimir(nuevo);
-		// System.out.println(a.getMov()[0]+" "+a.getMov()[1]);
+
 		Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
+		if (!nv.esObjetivo())
+			nv.distribucion();
+	}
+
+	public boolean esObjetivo() {
+		boolean flag = true;
+		for (int i = 0; i < t.size() + 1 && flag; i++) {
+			for (int j = 0; j < t.size() + 1 && flag; j++) {
+				flag = (t.getCantidad(i, j) == t.K());
+			}
+		}
+		return flag;
 	}
 
 	public void distribucion() {
 		ArrayList<int[]> l = crearLista();
-		ArrayList todas = new ArrayList<>();
 		ArrayList<int[]> todas1 = new ArrayList<>();
 		int cant;
 		if ((t.getCantidad(tractorX, tractorY) > t.K()))
 			cant = (t.getCantidad(tractorX, tractorY) - t.K());
 		else
-			cant = (t.getCantidad(tractorX, tractorY));
-		
-		todas1 = back(new int[l.size()], 0, todas1, cant, l.size());
+			cant = 0;
+
+		todas1 = back(new int[l.size()], 0, todas1, cant, l.size(), l);
 		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
 
-		// System.out.println("El tractor se mueve a " + Arrays.toString(l.get(i)));
-		// System.out.println(l.size()+" "+todas1.size());
-		ArrayList<Acciones> candidatos = DistPos(l, todas1);
+		ArrayList<Acciones> candidatos = Distpos(l, todas1);
+		for (int i = 0; i < candidatos.size(); i++)
+			System.out.println(candidatos.get(i));
+		System.out.println(candidatos.size());
+
+		// Elegimos una accion al azar
 		Random r = new Random();
-		// System.out.println(candidatos.size()+ " EL RANDOM");
-
 		int k = r.nextInt(candidatos.size());
-
 		System.out.println("Realizar accion: " + candidatos.get(k));
-		crearEstado(l, todas1, candidatos.get(k));
+		crearEstado(l, candidatos.get(k));
+
 	}
 
-	public ArrayList<Acciones> DistPos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
+	public ArrayList<Acciones> Distpos(ArrayList<int[]> l, ArrayList<int[]> todas1) {
 		ArrayList<Acciones> candidatos = new ArrayList<>();
-		int index = 0;
-		do {
-			for (int k = 0; k < l.size() && index < todas1.size(); k++) {
-				int[] disp = todas1.get(index);
-				for (int i = 0; i < l.size() && index < todas1.size(); i++) {
-					int[] mov = l.get(k);
-					int[] pos = l.get(i);
-					// System.out.println(Arrays.toString(todas1.get(i))+"
-					// "+Arrays.toString(l.get(i)));
-					Acciones a = new Acciones(mov, todas1.get(i));
-					candidatos.add(a);
-					// System.out.println(a);
-					// System.out.println(disp[i] + " a " + Arrays.toString(pos));
-				}
-				// System.out.println();
-				index++;
+		for (int i = 0; i < l.size(); i++) {
+			for (int j = 0; j < todas1.size(); j++) {
+				Acciones a = new Acciones(l.get(i), todas1.get(j));
+				candidatos.add(a);
+
 			}
-		} while (index < todas1.size());
+		}
 		return candidatos;
+	}
+
+	private boolean esPosible(int[] is, ArrayList<int[]> l) {
+		boolean flag = true;
+		for (int i = 0; i < is.length; i++) {
+			if (t.getTerreno()[l.get(i)[0]][l.get(i)[1]] + is[i] > t.Max())
+				flag = false;
+		}
+		return flag;
 	}
 
 	public static ArrayList<int[]> crearLista() {
@@ -147,10 +155,11 @@ public class Estado {
 		return lista;
 	}
 
-	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max, int ncasillas) {
+	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max, int ncasillas,
+			ArrayList<int[]> l) {
 		int[] copia = new int[actual.length];
 		if (etapa == ncasillas) {
-			if (suma(actual, ncasillas, max)) {
+			if (suma(actual, ncasillas, max) && esPosible(actual, l)) {
 				System.arraycopy(actual, 0, copia, 0, actual.length);
 				Arrays.toString(copia);
 				sol.add(copia);
@@ -159,10 +168,10 @@ public class Estado {
 
 		} else {
 			for (int cantidad = 0; cantidad <= max; cantidad++) {
-				// if (vale(actual, etapa, cantidad)) {// no sobrepasa los millones que tengo
+
 				actual[etapa] = cantidad;
-				back(actual, etapa + 1, sol, max, ncasillas);
-				// }
+				back(actual, etapa + 1, sol, max, ncasillas, l);
+
 			}
 		}
 		return sol;
@@ -173,14 +182,6 @@ public class Estado {
 		for (int i = 0; i < ncasillas; i++)
 			suma += actual[i];
 		return suma == max;
-	}
-
-	private boolean vale(int[] actual, int casillas, int cantidad) {
-		// int hay=0;
-		// for(int n=0;n<casillas;n++) hay=hay+actual[n];
-
-		return actual[casillas] <= cantidad;
-
 	}
 
 	public static void imprimir(int[][] solar) {
