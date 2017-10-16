@@ -37,6 +37,7 @@ public class gestionArchivo {
 			Terreno t = new Terreno(/*x, y, */k, max, terreno);
 			
 			Estado e=new Estado(t,x,y);
+			e.distribucion();
 			}else {
 				System.out.println("La cantidad de arena a distribuir no es correcta");
 			}

@@ -11,9 +11,6 @@ public class Estado {
 		this.t = t;
 		tractorX = tractorx;
 		tractorY = tractory;
-
-		distribucion();
-
 	}
 
 	public void crearEstado(ArrayList<int[]> l, Acciones a) {
@@ -24,13 +21,25 @@ public class Estado {
 		for (int i = 0; i < l.size(); i++) {
 			nuevo[l.get(i)[0]][l.get(i)[1]] = t.getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
 		}
-		if(nuevo[tractorX][tractorY]>t.K())
+		if (nuevo[tractorX][tractorY] > t.K())
 			nuevo[tractorX][tractorY] = t.K();
-					
-		 Terreno n = new Terreno(t.K(), t.Max(), nuevo);
-		 imprimir(nuevo);
-		
-		 Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
+
+		Terreno n = new Terreno(t.K(), t.Max(), nuevo);
+		imprimir(nuevo);
+
+		Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
+		if (!nv.esObjetivo())
+			nv.distribucion();
+	}
+
+	public boolean esObjetivo() {
+		boolean flag = true;
+		for (int i = 0; i < t.size() + 1 && flag; i++) {
+			for (int j = 0; j < t.size() + 1 && flag; j++) {
+				flag = (t.getCantidad(i, j) == t.K());
+			}
+		}
+		return flag;
 	}
 
 	public void distribucion() {
@@ -49,10 +58,10 @@ public class Estado {
 		for (int i = 0; i < candidatos.size(); i++)
 			System.out.println(candidatos.get(i));
 		System.out.println(candidatos.size());
+
+		// Elegimos una accion al azar
 		Random r = new Random();
-
 		int k = r.nextInt(candidatos.size());
-
 		System.out.println("Realizar accion: " + candidatos.get(k));
 		crearEstado(l, candidatos.get(k));
 
