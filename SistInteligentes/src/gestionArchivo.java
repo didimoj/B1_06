@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -11,7 +10,6 @@ import java.util.Scanner;
 public class gestionArchivo {
 	
 	public void cargarArchivo(String file) {
-		String s="";
 		int x, y, k, max, c, f;
 		try {
 			FileReader fr = new FileReader(new File(file));
