@@ -28,8 +28,9 @@ public class Estado {
 		imprimir(nuevo);
 
 		Estado nv = new Estado(n, a.getMov()[0], a.getMov()[1]);
-		if (!nv.esObjetivo())
-			nv.distribucion();
+		//if (!nv.esObjetivo())
+			//nv.distribucion();
+		System.out.println(nv.toString());
 	}
 
 	public boolean esObjetivo() {
@@ -42,6 +43,11 @@ public class Estado {
 		return flag;
 	}
 
+	@Override
+	public String toString() {
+		return imprimir(t.getTerreno())+"\n("+tractorX+", "+tractorY+")";
+	}
+
 	public void distribucion() {
 		ArrayList<int[]> l = crearLista();
 		ArrayList<int[]> todas1 = new ArrayList<>();
@@ -50,7 +56,7 @@ public class Estado {
 			cant = (t.getCantidad(tractorX, tractorY) - t.K());
 		else
 			cant = 0;
-
+		
 		todas1 = back(new int[l.size()], 0, todas1, cant, l.size(), l);
 		System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
 
@@ -184,12 +190,16 @@ public class Estado {
 		return suma == max;
 	}
 
-	public static void imprimir(int[][] solar) {
+	public String imprimir(int[][] solar) {
+		String s="";
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar.length; j++) {
-				System.out.print(solar[i][j] + "\t");
+				//System.out.print(solar[i][j] + "\t");
+				s+=solar[i][j]+" ";
 			}
-			System.out.println();
+			s+="\n";
+			//System.out.println();
 		}
+		return s;
 	}
 }
