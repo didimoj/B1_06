@@ -1,4 +1,11 @@
+import java.util.Arrays;
+
 public class Terreno {
+	@Override
+	public String toString() {
+		return "Terreno [terreno=" + Arrays.toString(terreno) + "]";
+	}
+
 	//private int tractorX;
 	//private int tractorY;
 	private int k;

@@ -1,24 +1,23 @@
+import java.util.ArrayList;
 
-public class Nodo {
-	private int id;
+public class Nodo implements Comparable<Nodo>{
+	private String id;
 	private Estado estado;
 	private int costo;
-	private Acciones accion;
 	private int valor;
-	private boolean visited;
+	//private boolean visited;
 	private Nodo parent;
 
-	public Nodo(int i, Estado e, int c, Acciones a, int v, Nodo p) {
+	public Nodo(String i, Estado e, int c, int v, Nodo p) {
 		id = i;
 		estado = e;
 		costo = c;
-		accion = a;
 		valor = v;
-		visited = false;
+		//visited = false;
 		parent = p;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -30,17 +29,15 @@ public class Nodo {
 		return costo;
 	}
 
-	public Acciones getAccion() {
-		return accion;
-	}
+	
 
 	public int getValor() {
 		return valor;
 	}
 
-	public boolean getVisited() {
+/*	public boolean getVisited() {
 		return visited;
-	}
+	}*/
 
 	public Nodo getParent() {
 		return parent;
@@ -53,9 +50,16 @@ public class Nodo {
 	public void setValor(int v) {
 		valor = v;
 	}
-
+/*
 	public void setVisited(boolean v) {
 		visited = v;
+	}*/
+	
+
+
+	@Override
+	public String toString() {
+		return "Nodo [id=" + id + ", estado=\n" + estado + "]";
 	}
 
 	public boolean equals(Object x) {
@@ -70,13 +74,13 @@ public class Nodo {
 		else if (this.valor > o.valor)
 			resultado = 1;
 		else {
-			if (this.id < o.id)
-				resultado = -1;
-			else if (this.id > o.id)
-				resultado = 1;
-			else
-				resultado = 0;
+			resultado = 0;
 		}
 		return resultado;
+	}
+
+	public ArrayList<Estado> getSucesores() {
+		GestionEstado g=new GestionEstado();
+		return g.distribucion(estado);
 	}
 }
