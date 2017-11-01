@@ -16,7 +16,7 @@ public class Nodo implements Comparable<Nodo>{
 		//visited = false;
 		parent = p;
 	}
-
+	
 	public String getId() {
 		return id;
 	}

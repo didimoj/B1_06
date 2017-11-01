@@ -30,7 +30,7 @@ public class Operaciones {
 		ArrayList<Integer> recorridos = new ArrayList<Integer>();
 		nodo.setVisited(true);													
 		ArrayList<Integer> cola = new ArrayList<Integer>();
-		
+
 		recorridos.add(Integer.parseInt(nodo.getId()));
 		cola.add(Integer.parseInt(nodo.getId())); 														
 		
