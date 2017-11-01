@@ -5,7 +5,7 @@ public class Nodo implements Comparable<Nodo>{
 	private Estado estado;
 	private int costo;
 	private int valor;
-	//private boolean visited;
+	private boolean visited;
 	private Nodo parent;
 
 	public Nodo(String i, Estado e, int c, int v, Nodo p) {
@@ -35,9 +35,9 @@ public class Nodo implements Comparable<Nodo>{
 		return valor;
 	}
 
-/*	public boolean getVisited() {
+	public boolean getVisited() {
 		return visited;
-	}*/
+	}
 
 	public Nodo getParent() {
 		return parent;
@@ -50,10 +50,10 @@ public class Nodo implements Comparable<Nodo>{
 	public void setValor(int v) {
 		valor = v;
 	}
-/*
+
 	public void setVisited(boolean v) {
 		visited = v;
-	}*/
+	}
 	
 
 
