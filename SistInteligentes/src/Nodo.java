@@ -13,7 +13,7 @@ public class Nodo implements Comparable<Nodo>{
 		estado = e;
 		costo = c;
 		valor = v;
-		//visited = false;
+		visited = false;
 		parent = p;
 	}
 	
