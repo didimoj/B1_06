@@ -28,7 +28,7 @@ public class Problema {
 	public void getSolucion() throws NoSuchAlgorithmException {
 		Frontera f = new Frontera();
 		Random r = new Random();
-		Nodo nodo = new Nodo(getId(estInicial), estInicial, 1, r.nextInt(40000), null,null);
+		Nodo nodo = new Nodo(getId(estInicial), estInicial,0,r.nextInt(40000),1, null,null);
 		f.insertar(nodo);
 		while (!f.esVacia()) {
 			nodo = f.eliminar();
@@ -43,11 +43,11 @@ public class Problema {
 				}
 			} else {
 				ArrayList<Sucesor> l = e.getSucesores(nodo.getEstado());
-				 
+				
 				for (int i = 0; i < l.size(); i++) {
 					System.out.println(l.get(i).getAccion());
 					//El 1 es el valor
-					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), l.get(i).getAccion().getCosto(),1, nodo,l.get(i).getAccion());
+					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(),nodo.getProf()+1, l.get(i).getAccion().getCosto(),1, nodo,l.get(i).getAccion());
 					System.out.println(n);
 					f.insertar(n);
 				}
