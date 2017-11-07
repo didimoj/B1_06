@@ -43,10 +43,11 @@ public class Problema {
 				}
 			} else {
 				ArrayList<Sucesor> l = e.getSucesores(nodo.getEstado());
-				
+				 
 				for (int i = 0; i < l.size(); i++) {
 					System.out.println(l.get(i).getAccion());
-					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), 1, r.nextInt(40000), nodo,l.get(i).getAccion());
+					//El 1 es el valor
+					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), l.get(i).getAccion().getCosto(),1, nodo,l.get(i).getAccion());
 					System.out.println(n);
 					f.insertar(n);
 				}
