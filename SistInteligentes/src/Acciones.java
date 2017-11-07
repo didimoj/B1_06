@@ -27,12 +27,17 @@ public class Acciones {
 	public void setDist(int[] dist) {
 		this.dist = dist;
 	}
-
+	public int getCosto() {
+		int costo=0;
+		for(int i=0;i<dist.length;i++)
+			costo+=dist[i];
+		return costo+1;
+	}
 	@Override
 	public String toString() {
 		String s="";
 		for(int i=0;i<casillas.size();i++)
 			s+=dist[i]+",("+Arrays.toString(casillas.get(i))+") ";
-		return "Acciones [Movimiento=" + Arrays.toString(mov) + ", Distribucion= [ " + s + "] , Coste: 1";
+		return "Acciones [Movimiento=" + Arrays.toString(mov) + ", Distribucion= [ " + s + "] , Coste: "+getCosto();
 	}
 }

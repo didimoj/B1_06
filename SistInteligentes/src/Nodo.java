@@ -3,15 +3,17 @@ import java.util.ArrayList;
 public class Nodo implements Comparable<Nodo> {
 	private String id;
 	private Estado estado;
+	private int prof;
 	private int costo;
 	private int valor;
 	private boolean visited;
 	private Nodo parent;
 	private Acciones accion;
 
-	public Nodo(String i, Estado e, int c, int v, Nodo p, Acciones a) {
+	public Nodo(String i, Estado e, int prof, int c, int v, Nodo p, Acciones a) {
 		id = i;
 		estado = e;
+		this.prof = prof;
 		costo = c;
 		valor = v;
 		visited = false;
@@ -26,6 +28,10 @@ public class Nodo implements Comparable<Nodo> {
 
 	public Estado getEstado() {
 		return estado;
+	}
+
+	public int getProf() {
+		return prof;
 	}
 
 	public int getCosto() {
@@ -66,7 +72,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	@Override
 	public String toString() {
-		return "Nodo [id=" + id + ", estado=\n" + estado + "]";
+		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
 	}
 
 	public boolean equals(Object x) {
