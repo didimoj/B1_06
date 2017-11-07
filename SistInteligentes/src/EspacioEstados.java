@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GestionEstado {
-	public GestionEstado() {
-		
-	}
+public class EspacioEstados {
+	
 public Estado crearEstado(ArrayList<int[]> l, Acciones a,Estado e) {
 		
 		
@@ -45,7 +43,7 @@ public Estado crearEstado(ArrayList<int[]> l, Acciones a,Estado e) {
 		return imprimir(t.getTerreno())+"\n("+getTractorX()+", "+getTractorY()+")";
 	}
 */
-	public ArrayList<Estado> distribucion(Estado e) {
+	public ArrayList<Sucesor> getSucesores(Estado e) {
 		ArrayList<int[]> l = crearLista(e);
 		ArrayList<int[]> todas1 = new ArrayList<>();
 		int cant;
@@ -58,7 +56,11 @@ public Estado crearEstado(ArrayList<int[]> l, Acciones a,Estado e) {
 		//System.out.println("\n------- DISTRIBUCCIONES POSIBLES --------");
 
 		ArrayList<Acciones> candidatos = Distpos(l, todas1);
-		
+		ArrayList<Sucesor> sucesores =new ArrayList<>();
+		for(int k=0;k<candidatos.size();k++) 
+			sucesores.add(new Sucesor("acc"+k, candidatos.get(k), crearEstado(l,candidatos.get(k),e)));
+			
+		/*
 		ArrayList<Estado> sucesores =new ArrayList<>();
 		for(int k=0;k<candidatos.size();k++) 
 			sucesores.add(crearEstado(l,candidatos.get(k),e));
@@ -83,7 +85,7 @@ public Estado crearEstado(ArrayList<int[]> l, Acciones a,Estado e) {
 		ArrayList<Acciones> candidatos = new ArrayList<>();
 		for (int i = 0; i < l.size(); i++) {
 			for (int j = 0; j < todas1.size(); j++) {
-				Acciones a = new Acciones(l.get(i), todas1.get(j));
+				Acciones a = new Acciones(l.get(i), todas1.get(j),l);
 				candidatos.add(a);
 
 			}

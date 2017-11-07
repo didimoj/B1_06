@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Operaciones {
@@ -48,5 +49,21 @@ public class Operaciones {
 		return recorridos;// Se devuelve el recorrido del grafo en profundidad
 	}
 	 
+	public ArrayList<Nodo> busquedaCosteUniforme(Nodo nodoInicial) {
+		PriorityQueue<Nodo> nodosFrontera = new PriorityQueue<Nodo>();
+		ArrayList<Nodo> nodosVisitados = new ArrayList<Nodo>();
+		Nodo nodoActual;
+		Nodo nodoObjetivo;
+		
+		nodosFrontera.add(nodoInicial);
+		
+		while(!nodosFrontera.isEmpty()) {
+			nodosFrontera.//ordenar segun coste
+			nodoActual = nodosFrontera.poll();
+			if(esObjetivo(nodoActual))
+				nodoObjetivo = nodoActual;
+		}
+	}
+
 
 }

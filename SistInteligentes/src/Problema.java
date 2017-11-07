@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-public class Agente {
-	private Frontera f;
+public class Problema {
+	private EspacioEstados e;
+	private Estado estInicial;
 
-	public Agente() {
-		f = new Frontera();
+	public Problema(Estado e_ini) {
+		e=new EspacioEstados();
+		estInicial=e_ini;
 
 	}
 
@@ -23,9 +25,10 @@ public class Agente {
 		return flag;
 	}
 
-	public void getSolucion(Estado estInicial) throws NoSuchAlgorithmException {
+	public void getSolucion() throws NoSuchAlgorithmException {
+		Frontera f = new Frontera();
 		Random r = new Random();
-		Nodo nodo = new Nodo(getId(estInicial), estInicial, 1, r.nextInt(40000), null);
+		Nodo nodo = new Nodo(getId(estInicial), estInicial, 1, r.nextInt(40000), null,null);
 		f.insertar(nodo);
 		while (!f.esVacia()) {
 			nodo = f.eliminar();
@@ -39,10 +42,12 @@ public class Agente {
 					nodo = nodo.getParent();
 				}
 			} else {
-				ArrayList<Estado> l = nodo.getSucesores();
+				ArrayList<Sucesor> l = e.getSucesores(nodo.getEstado());
 				
 				for (int i = 0; i < l.size(); i++) {
-					Nodo n = new Nodo(getId(l.get(i)), l.get(i), 1, r.nextInt(40000), nodo);
+					System.out.println(l.get(i).getAccion());
+					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), 1, r.nextInt(40000), nodo,l.get(i).getAccion());
+					System.out.println(n);
 					f.insertar(n);
 				}
 			}
