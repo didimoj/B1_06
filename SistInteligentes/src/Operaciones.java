@@ -5,9 +5,9 @@ import java.util.Queue;
 
 public class Operaciones {
 
-	public boolean busquedaAcotada(Problema prob, Estrategias est, profundidad_maxima) {
+	public boolean busquedaAcotada(Problema prob, Estrategias estrategia, int profundidad_maxima) {
 		Frontera frontera = new Frontera();
-		Nodo nodoInicial = new Nodo(getId(estInicial), estInicial, 0, r.nextInt(40000), 1, null, null);
+		Nodo nodoInicial = new Nodo();						//String i, Estado e, int prof, int c, int v, Nodo p, Acciones a
 		ArrayList<Nodo> sucesores = new ArrayList<Nodo>();
 		ArrayList<Nodo> listaNodos;
 		boolean solucion;
@@ -22,7 +22,7 @@ public class Operaciones {
 				solucion = true;
 			} else {
 				sucesores.add(nodoActual);
-				listaNodos = new ArrayList<Nodo>(sucesores, nodoActual, profundidad_maxima, op);
+				listaNodos = new ArrayList<Nodo>(sucesores, nodoActual, profundidad_maxima, estartegia);
 				frontera.insertar(listaNodos);
 			}
 		}
