@@ -7,12 +7,15 @@ public class Nodo implements Comparable<Nodo>{
 	private int valor;
 	//private boolean visited;
 	private Nodo parent;
+	private Acciones accion;
+	
 
-	public Nodo(String i, Estado e, int c, int v, Nodo p) {
+	public Nodo(String i, Estado e, int c, int v, Nodo p,Acciones a) {
 		id = i;
 		estado = e;
 		costo = c;
 		valor = v;
+		accion=a;
 		//visited = false;
 		parent = p;
 	}
@@ -29,7 +32,13 @@ public class Nodo implements Comparable<Nodo>{
 		return costo;
 	}
 
-	
+	public Acciones getAccion() {
+		return accion;
+	}
+
+	public void setAccion(Acciones acciones) {
+		this.accion = acciones;
+	}
 
 	public int getValor() {
 		return valor;
@@ -79,8 +88,4 @@ public class Nodo implements Comparable<Nodo>{
 		return resultado;
 	}
 
-	public ArrayList<Estado> getSucesores() {
-		GestionEstado g=new GestionEstado();
-		return g.distribucion(estado);
-	}
 }

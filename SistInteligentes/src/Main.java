@@ -3,16 +3,17 @@ import java.security.NoSuchAlgorithmException;
 public class Main {
 
 	public static void main(String[] args) {
-		gestionArchivo yo=new gestionArchivo();
-		Estado estInicial=yo.cargarArchivo("terreno.txt");
+		gestionArchivo archivo=new gestionArchivo();
+		Estado estInicial=archivo.cargarArchivo("terreno.txt");
 		
-		Agente a=new Agente();
+		Problema p=new Problema(estInicial);
+		
 		try {
-			a.getSolucion(estInicial);
+			p.getSolucion();
 		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 }
