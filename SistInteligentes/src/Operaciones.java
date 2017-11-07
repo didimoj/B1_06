@@ -7,18 +7,18 @@ public class Operaciones {
 
 	public boolean busquedaAcotada(Problema prob, Estrategias estrategia, int profundidad_maxima) {
 		Frontera frontera = new Frontera();
-		Nodo nodoInicial = new Nodo();						//String i, Estado e, int prof, int c, int v, Nodo p, Acciones a
+		Nodo nodoInicial = new Nodo(); // String i, Estado e, int prof, int c, int v, Nodo p, Acciones a
 		ArrayList<Nodo> sucesores = new ArrayList<Nodo>();
 		ArrayList<Nodo> listaNodos;
 		boolean solucion;
 		Nodo nodoActual;
-		
+
 		frontera.insertar(nodoInicial);
 		solucion = false;
-		
-		while(solucion=false && !frontera.esVacia()) {
+
+		while (solucion = false && !frontera.esVacia()) {
 			nodoActual = frontera.eliminar();
-			if(prob.esObjetivo(nodoActual)) {
+			if (prob.esObjetivo(nodoActual)) {
 				solucion = true;
 			} else {
 				sucesores.add(nodoActual);
@@ -26,7 +26,7 @@ public class Operaciones {
 				frontera.insertar(listaNodos);
 			}
 		}
-		
+
 		return solucion;
 	}
 }
