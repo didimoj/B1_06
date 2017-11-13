@@ -47,10 +47,12 @@ public class Problema {
 				for (int i = 0; i < l.size(); i++) {
 					System.out.println(l.get(i).getAccion());
 					//El 1 es el valor
-					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), l.get(i).getAccion().getCosto(),1, nodo,l.get(i).getAccion());
+					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), l.get(i).getAccion().getCosto(),l.get(i).getAccion().getCosto(), nodo,l.get(i).getAccion());
 					System.out.println(n);
 					f.insertar(n);
 				}
+				System.out.println(f.toString());
+				System.out.println("aaaaaaaaaaaaaaa");
 			}
 
 		}
