@@ -75,12 +75,8 @@ public class Nodo implements Comparable<Nodo> {
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		//return "Nodo [id=" + id + ", estado=\n" + estado + "]";
-		return ""+costo;
-=======
+
 		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
->>>>>>> branch 'master' of https://github.com/didimoj/B1_06.git
 	}
 
 	public boolean equals(Object x) {
