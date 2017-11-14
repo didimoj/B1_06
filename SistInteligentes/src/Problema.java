@@ -9,10 +9,23 @@ public class Problema {
 	private Estado estInicial;
 
 	public Problema(Estado e_ini) {
-		e=new EspacioEstados();
-		estInicial=e_ini;
+		e = new EspacioEstados();
+		estInicial = e_ini;
 
 	}
+
+	
+	public EspacioEstados getE() {
+		return e;
+	}
+
+
+
+	public Estado getEstInicial() {
+		return estInicial;
+	}
+
+
 
 	public boolean esObjetivo(Nodo n) {
 		boolean flag = true;
@@ -25,14 +38,14 @@ public class Problema {
 		return flag;
 	}
 
-	public void getSolucion() throws NoSuchAlgorithmException {
+/*	public void getSolucion() throws NoSuchAlgorithmException {
 		Frontera f = new Frontera();
 		Random r = new Random();
-		Nodo nodo = new Nodo(getId(estInicial), estInicial, 1, r.nextInt(40000), null,null);
+		Nodo nodo = new Nodo(getId(estInicial), estInicial, 0, r.nextInt(40000), 1, null, null);
 		f.insertar(nodo);
 		while (!f.esVacia()) {
 			nodo = f.eliminar();
-			System.out.println("Elegimos el "+nodo);
+			System.out.println("Elegimos el " + nodo);
 			if (esObjetivo(nodo)) {
 				Stack pila = new Stack();
 				pila.add(nodo);
@@ -43,11 +56,17 @@ public class Problema {
 				}
 			} else {
 				ArrayList<Sucesor> l = e.getSucesores(nodo.getEstado());
-				 
+
 				for (int i = 0; i < l.size(); i++) {
 					System.out.println(l.get(i).getAccion());
+<<<<<<< HEAD
 					//El 1 es el valor
 					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), l.get(i).getAccion().getCosto(),l.get(i).getAccion().getCosto(), nodo,l.get(i).getAccion());
+=======
+					// El 1 es el valor
+					Nodo n = new Nodo(getId(l.get(i).getEstado()), l.get(i).getEstado(), nodo.getProf() + 1,
+							l.get(i).getAccion().getCosto(), 1, nodo, l.get(i).getAccion());
+>>>>>>> branch 'master' of https://github.com/didimoj/B1_06.git
 					System.out.println(n);
 					f.insertar(n);
 				}
@@ -58,8 +77,12 @@ public class Problema {
 		}
 
 	}
-
-	private String getId(Estado estado) throws NoSuchAlgorithmException {
+*/
+	
+	//llamar al tipo de búsqueda 
+	
+	
+	public String getId(Estado estado) throws NoSuchAlgorithmException {
 		String clear = estado.toString();
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		byte[] b = md.digest(clear.getBytes());

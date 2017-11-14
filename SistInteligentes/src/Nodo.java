@@ -1,23 +1,28 @@
 import java.util.ArrayList;
 
-public class Nodo implements Comparable<Nodo>{
+public class Nodo implements Comparable<Nodo> {
 	private String id;
 	private Estado estado;
+	private int prof;
 	private int costo;
 	private int valor;
-	//private boolean visited;
+	private boolean visited;
 	private Nodo parent;
 	private Acciones accion;
-	
 
-	public Nodo(String i, Estado e, int c, int v, Nodo p,Acciones a) {
+	public Nodo(String i, Estado e, int c, int v, Nodo p, Acciones a, int prof) {
 		id = i;
 		estado = e;
+		this.prof = prof;
 		costo = c;
 		valor = v;
-		accion=a;
-		//visited = false;
+		visited = false;
+		accion = a;
+		// visited = false;
 		parent = p;
+	}
+	public Nodo() {
+		
 	}
 
 	public String getId() {
@@ -26,6 +31,10 @@ public class Nodo implements Comparable<Nodo>{
 
 	public Estado getEstado() {
 		return estado;
+	}
+
+	public int getProf() {
+		return prof;
 	}
 
 	public int getCosto() {
@@ -44,9 +53,9 @@ public class Nodo implements Comparable<Nodo>{
 		return valor;
 	}
 
-/*	public boolean getVisited() {
+	public boolean getVisited() {
 		return visited;
-	}*/
+	}
 
 	public Nodo getParent() {
 		return parent;
@@ -59,21 +68,24 @@ public class Nodo implements Comparable<Nodo>{
 	public void setValor(int v) {
 		valor = v;
 	}
-/*
+
 	public void setVisited(boolean v) {
 		visited = v;
-	}*/
-	
-
+	}
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		//return "Nodo [id=" + id + ", estado=\n" + estado + "]";
 		return ""+costo;
+=======
+		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
+>>>>>>> branch 'master' of https://github.com/didimoj/B1_06.git
 	}
 
 	public boolean equals(Object x) {
-		if (x instanceof Nodo && id == ((Nodo) x).getId());
+		if (x instanceof Nodo && id == ((Nodo) x).getId())
+			;
 		return true;
 	}
 

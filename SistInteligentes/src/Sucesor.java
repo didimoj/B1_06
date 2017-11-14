@@ -4,8 +4,8 @@ public class Sucesor {
 	private Acciones accion;
 	private Estado estado;
 	
-	public Sucesor(String nombre, Acciones acc, Estado es) {
-		nombre=nombre;
+	public Sucesor(String nom, Acciones acc, Estado es) {
+		nombre=nom;
 		accion=acc;
 		estado=es;
 	}
