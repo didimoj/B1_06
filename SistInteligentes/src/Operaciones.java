@@ -4,20 +4,25 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Operaciones {
 
-	public Stack busquedaAcotada(Problema prob, String estrategia, int profundidad_maxima) throws NoSuchAlgorithmException {
+	public Operaciones() {
+	}
+
+	public Queue<Nodo> busquedaAcotada(Problema prob, String estrategia, int profundidad_maxima)
+			throws NoSuchAlgorithmException {
 		Frontera frontera = new Frontera();
 		Nodo nodoInicial = new Nodo(prob.getId(prob.getEstInicial()), prob.getEstInicial(), 0,
-				tipoEstrategia(estrategia, profundidad_maxima, 0, 0), null, null, 0);
+				tipoEstrategia(estrategia, profundidad_maxima, 0, 0, 0), null, null, 0);
 		ArrayList<Nodo> listaNodos;
-		boolean solucion;
-		Nodo nodoActual = new Nodo() ;
+		boolean solucion = false;
+		Nodo nodoActual = new Nodo();
 		int valor = 0;
 
 		frontera.insertar(nodoInicial);
-		solucion = false;
 
 		while (solucion == false && !frontera.esVacia()) {
 			nodoActual = frontera.eliminar();
@@ -25,13 +30,16 @@ public class Operaciones {
 				solucion = true;
 			} else {
 				ArrayList<Sucesor> sucesores = prob.getE().getSucesores(nodoActual.getEstado());
-				valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(), nodoActual.getProf());
+				// valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
+				// nodoActual.getProf());
 				// frontera.insertar(sucesores);
 				for (int i = 0; i < sucesores.size(); i++) {
 					Nodo n = new Nodo(prob.getId(sucesores.get(i).getEstado()), sucesores.get(i).getEstado(),
-							nodoActual.getCosto(), valor, nodoActual.getParent(), sucesores.get(i).getAccion(),
-							nodoActual.getProf() + 1);
-					System.out.println(n);
+							nodoActual.getCosto() + sucesores.get(i).getAccion().getCosto(),
+							tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
+									nodoActual.getProf() + 1, sucesores.get(i).getAccion().getCosto()),
+							nodoActual, sucesores.get(i).getAccion(), nodoActual.getProf() + 1);
+					// System.out.println(n);
 					frontera.insertar(n);
 				}
 			}
@@ -44,18 +52,31 @@ public class Operaciones {
 		}
 	}
 
-	public int tipoEstrategia(String est, int prof_max, int coste_act, int prof_act) {
+	public Queue<Nodo> busquedaIterativa(Problema prob, String estrategia, int prof_max, int inc_prof)
+			throws NoSuchAlgorithmException {
+		int prof_act = inc_prof;
+		Queue<Nodo> solucion = null;
+
+		while (solucion == null && prof_act <= prof_max) {
+			solucion = busquedaAcotada(prob, estrategia, prof_act);
+			prof_act = prof_act + inc_prof;
+		}
+
+		return solucion;
+	}
+
+	public int tipoEstrategia(String est, int prof_max, int coste_act, int prof_act, int c) {
 		int valor = 0;
 
 		switch (est) {
 		case "DFS":
-			valor = prof_max - coste_act;
+			valor = prof_max - prof_act;
 			break;
 		case "BFS":
 			valor = prof_act;
 			break;
 		case "CU":
-			valor = coste_act;
+			valor = coste_act + c;
 			break;
 		default:
 			System.out.println("La estrategia elegida es errónea");
@@ -64,26 +85,19 @@ public class Operaciones {
 		return valor;
 	}
 
-	public Stack getSolucion(Nodo nodo) {
-		Stack pila = new Stack();
+	public Queue<Nodo> getSolucion(Nodo nodo) {
+		Stack<Nodo> pila = new Stack<Nodo>();
+		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 
-		while (nodo.getParent() != null) {
-			pila.add(nodo.getParent());
+		while (nodo != null) {
+			pila.add(nodo);
 			nodo = nodo.getParent();
 		}
-
-		return pila;
-	}
-
-	public Stack busquedaIterativa(Problema prob, String estrategia, int prof_max, int inc_prof) throws NoSuchAlgorithmException {
-		int prof_act = inc_prof;
-		Stack solucion = null;
-
-		while (solucion != null && prof_act <= prof_max) {
-			solucion = busquedaAcotada(prob, estrategia, prof_act);
-			prof_act = prof_act + inc_prof;
+		// System.out.println("pila:" + pila.size());
+		while (!pila.isEmpty()) {
+			cola.add(pila.pop());
 		}
 
-		return solucion;
+		return cola;
 	}
 }

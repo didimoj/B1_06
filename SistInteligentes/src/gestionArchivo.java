@@ -46,22 +46,18 @@ public class gestionArchivo {
 
 	}
 
-	public void escribirArchivo(String path, int x, int y, int k, int max, int c, int f, int[][] terreno) {
+	public void escribirArchivo(String path, Nodo nodo,boolean escribir) {
 		File file = new File(path);
 		try {
-			FileWriter fw = new FileWriter(file, false);
+			FileWriter fw = new FileWriter(file, escribir);
 			BufferedWriter bw = new BufferedWriter(fw);
 			// bw.newLine();
 			// bw.write("------------------");
 			// bw.newLine();
-			bw.write(x + " " + y + " " + k + " " + max + " " + c + " " + f + "\n ");
+			if (nodo.getAccion()!=null)
+				bw.write(nodo.getAccion().toString() + "\n");
 			bw.newLine();
-			for (int i = 0; i < f; i++) {
-				for (int j = 0; j < c; j++) {
-					bw.write(" " + terreno[i][j]);
-				}
-				bw.newLine();
-			}
+			
 			bw.close();
 			fw.close();
 		} catch (IOException e) {
