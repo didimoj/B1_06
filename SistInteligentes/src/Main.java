@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		gestionArchivo archivo=new gestionArchivo();
-		Estado estInicial=archivo.cargarArchivo("terreno.txt");
+		Estado estInicial=archivo.cargarArchivo("terren0.txt");
 
 		Problema p=new Problema(estInicial);
 		
