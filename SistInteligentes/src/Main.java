@@ -20,7 +20,7 @@ public class Main {
 				archivo.escribirArchivo("soluci0n.txt", cola.poll(),escribir);
 				escribir=true;
 			}
-			System.out.println("HECHO!!!!");
+			System.out.println("HECHOO!!!!");
 			
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

@@ -8,7 +8,6 @@ public class Acciones {
 
 	public Acciones(int[] m, int[] d, ArrayList<int[]> l) {
 		mov = m;
-
 		dist = d;
 		casillas = l;
 	}
