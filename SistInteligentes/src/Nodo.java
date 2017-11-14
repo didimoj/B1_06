@@ -10,7 +10,7 @@ public class Nodo implements Comparable<Nodo> {
 	private Nodo parent;
 	private Acciones accion;
 
-	public Nodo(String i, Estado e, int prof, int c, int v, Nodo p, Acciones a) {
+	public Nodo(String i, Estado e, int c, int v, Nodo p, Acciones a, int prof) {
 		id = i;
 		estado = e;
 		this.prof = prof;
@@ -20,6 +20,9 @@ public class Nodo implements Comparable<Nodo> {
 		accion = a;
 		// visited = false;
 		parent = p;
+	}
+	public Nodo() {
+		
 	}
 
 	public String getId() {

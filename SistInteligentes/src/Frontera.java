@@ -25,4 +25,6 @@ public class Frontera {
 	public boolean esVacia() {
 		return lista.isEmpty();
 	}
+	
+	
 }

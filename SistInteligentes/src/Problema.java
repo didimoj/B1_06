@@ -14,6 +14,19 @@ public class Problema {
 
 	}
 
+	
+	public EspacioEstados getE() {
+		return e;
+	}
+
+
+
+	public Estado getEstInicial() {
+		return estInicial;
+	}
+
+
+
 	public boolean esObjetivo(Nodo n) {
 		boolean flag = true;
 		Estado e = n.getEstado();
@@ -25,7 +38,7 @@ public class Problema {
 		return flag;
 	}
 
-	public void getSolucion() throws NoSuchAlgorithmException {
+/*	public void getSolucion() throws NoSuchAlgorithmException {
 		Frontera f = new Frontera();
 		Random r = new Random();
 		Nodo nodo = new Nodo(getId(estInicial), estInicial, 0, r.nextInt(40000), 1, null, null);
@@ -57,8 +70,12 @@ public class Problema {
 		}
 
 	}
-
-	private String getId(Estado estado) throws NoSuchAlgorithmException {
+*/
+	
+	//llamar al tipo de búsqueda 
+	
+	
+	public String getId(Estado estado) throws NoSuchAlgorithmException {
 		String clear = estado.toString();
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		byte[] b = md.digest(clear.getBytes());
