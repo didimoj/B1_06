@@ -6,14 +6,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		gestionArchivo archivo=new gestionArchivo();
-		Estado estInicial=archivo.cargarArchivo("terren0.txt");
+		Estado estInicial=archivo.cargarArchivo("terreno.txt");
 
 		Problema p=new Problema(estInicial);
 		
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>(); 
 		boolean escribir=false;
 		try {
-			cola = p.getSolucion("DFS", 5);
+			cola = p.getSolucion("A*", 50);
 			System.out.println("--" + cola.size());
 			while(!cola.isEmpty()) {
 				

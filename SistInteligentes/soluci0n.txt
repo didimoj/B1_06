@@ -1,7 +1,15 @@
 
-Acciones [Movimiento=[0, 1], Distribucion= [ 0,([1, 0]) 1,([0, 1]) ] , Coste: 2
+Acciones [Movimiento=[1, 0], Distribucion= [ 0,([1, 0]) 0,([0, 1]) ] , Coste: 1
 
-Acciones [Movimiento=[1, 1], Distribucion= [ 1,([1, 1]) 0,([0, 0]) ] , Coste: 2
+Acciones [Movimiento=[2, 0], Distribucion= [ 0,([0, 0]) 0,([2, 0]) 0,([1, 1]) ] , Coste: 1
 
-Acciones [Movimiento=[0, 1], Distribucion= [ 0,([0, 1]) 2,([1, 0]) ] , Coste: 3
+Acciones [Movimiento=[1, 0], Distribucion= [ 1,([1, 0]) 1,([2, 1]) ] , Coste: 3
+
+Acciones [Movimiento=[1, 1], Distribucion= [ 1,([0, 0]) 0,([2, 0]) 0,([1, 1]) ] , Coste: 2
+
+Acciones [Movimiento=[1, 2], Distribucion= [ 0,([0, 1]) 0,([2, 1]) 0,([1, 0]) 0,([1, 2]) ] , Coste: 1
+
+Acciones [Movimiento=[0, 2], Distribucion= [ 0,([0, 2]) 0,([2, 2]) 1,([1, 1]) ] , Coste: 2
+
+Acciones [Movimiento=[1, 2], Distribucion= [ 0,([1, 2]) 2,([0, 1]) ] , Coste: 3
 

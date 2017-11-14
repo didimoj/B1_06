@@ -22,7 +22,7 @@ public class Problema {
 	public Estado getEstInicial() {
 		return estInicial;
 	}
-
+/*
 	public boolean esObjetivo(Nodo n) {
 		boolean flag = true;
 		Estado e = n.getEstado();
@@ -32,6 +32,17 @@ public class Problema {
 			}
 		}
 		return flag;
+	}
+	*/
+	public int esObjetivo(Estado e) {
+		int heuristica = 0;
+		
+		for (int i = 0; i < e.getTerreno().size() + 1; i++) {
+			for (int j = 0; j < e.getTerreno().size() + 1; j++) {
+				if (e.getTerreno().getCantidad(i, j) != e.getTerreno().K()) heuristica++;
+			}
+		}
+		return heuristica;
 	}
 
 	/*

@@ -16,6 +16,12 @@ public class Estado {
 	public Terreno getTerreno() {
 		return t;
 	}
+	public int getCosto(Acciones a) {
+		int costo = 0;
+		for (int i = 0; i < a.getDist().length; i++)
+			costo += a.getDist()[i];
+		return costo + 1;
+	}
 
 	@Override
 	public String toString() {
