@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 public class Nodo implements Comparable<Nodo> {
 	private String id;
@@ -6,7 +6,6 @@ public class Nodo implements Comparable<Nodo> {
 	private int prof;
 	private int costo;
 	private int valor;
-	private boolean visited;
 	private Nodo parent;
 	private Acciones accion;
 
@@ -16,9 +15,7 @@ public class Nodo implements Comparable<Nodo> {
 		this.prof = prof;
 		costo = c;
 		valor = v;
-		visited = false;
 		accion = a;
-		// visited = false;
 		parent = p;
 	}
 	public Nodo() {
@@ -53,10 +50,7 @@ public class Nodo implements Comparable<Nodo> {
 		return valor;
 	}
 
-	public boolean getVisited() {
-		return visited;
-	}
-
+	
 	public Nodo getParent() {
 		return parent;
 	}
@@ -67,10 +61,6 @@ public class Nodo implements Comparable<Nodo> {
 
 	public void setValor(int v) {
 		valor = v;
-	}
-
-	public void setVisited(boolean v) {
-		visited = v;
 	}
 
 	@Override

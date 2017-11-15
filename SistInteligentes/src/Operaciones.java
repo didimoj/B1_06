@@ -19,25 +19,24 @@ public class Operaciones {
 		Nodo nodoInicial = new Nodo(prob.getId(prob.getEstInicial()), prob.getEstInicial(), 0,
 				tipoEstrategia(estrategia, profundidad_maxima, 0, 0, 0, prob.esObjetivo(prob.getEstInicial())), null,
 				null, 0);
-		ArrayList<Nodo> listaNodos;
+		//ArrayList<Nodo> listaNodos;
 		boolean solucion = false;
 		Nodo nodoActual = new Nodo();
-		int valor = 0;
+		//int valor = 0;
 		Hashtable<String, Nodo> visitados = new Hashtable<String, Nodo>();
 		frontera.insertar(nodoInicial);
 		boolean max = true;
-		while (solucion == false && !frontera.esVacia() && max) {
+		while (solucion == false && !frontera.esVacia()/* && max*/) {
 			nodoActual = frontera.eliminar();
 			visitados.put(nodoActual.getId(), nodoActual);
 			if (prob.esObjetivo(nodoActual.getEstado()) == 0) { // AQUI SE PUEDE CAMBIAR LA FUNCION OBJETIVO CON BOOLEAN
 				solucion = true;
 			} else {
-				if (nodoActual.getProf() > profundidad_maxima)
+				if (nodoActual.getProf() >= profundidad_maxima)
 					max = false;
 				else {
 
 					ArrayList<Sucesor> sucesores = prob.getE().getSucesores(nodoActual.getEstado());
-
 					// valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
 					// nodoActual.getProf());
 					// frontera.insertar(sucesores);
@@ -56,7 +55,9 @@ public class Operaciones {
 					}
 				}
 			}
+			//System.out.println(frontera);
 		}
+		
 		if (solucion) {
 			return getSolucion(nodoActual);
 		} else {

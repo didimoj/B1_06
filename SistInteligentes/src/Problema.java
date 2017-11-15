@@ -71,7 +71,7 @@ public class Problema {
 	public Queue getSolucion(String estrategia, int prof_max) throws NoSuchAlgorithmException {
 		Operaciones operacion = new Operaciones();
 		if (estrategia.equals("DFS")) 
-			return operacion.busquedaIterativa(this, estrategia, prof_max, 1);
+			return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
 		else
 			return operacion.busquedaAcotada(this, estrategia, prof_max);	
 		
