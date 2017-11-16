@@ -13,20 +13,25 @@ public class Main {
 		
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>(); 
 		boolean escribir=false;
+		int contador=0;
+		Nodo n;
 		try {
-			cola = p.getSolucion("DFS", 10);
-			System.out.println("--" + cola.size());
+			cola = p.getSolucion("A*", 20);
 			while(!cola.isEmpty()) {
-				
-				archivo.escribirArchivo("soluci0n.txt", cola.poll(),escribir);
+				n=cola.poll();
+				if(n.getAccion()!=null)
+				contador+=n.getAccion().getCosto();
+				archivo.escribirArchivo("soluci0n.txt", n,escribir);
 				escribir=true;
 			}
+			archivo.escribirArchivo("soluci0n.txt",contador,escribir);
 			long t1=System.currentTimeMillis();
 			System.out.println("HECHOO!!!! "+(t1-t0));
 			
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 }

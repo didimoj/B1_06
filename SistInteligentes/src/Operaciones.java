@@ -28,13 +28,13 @@ public class Operaciones {
 		boolean max = true;
 		while (solucion == false && !frontera.esVacia()/* && max*/) {
 			nodoActual = frontera.eliminar();
-			visitados.put(nodoActual.getId(), nodoActual);
+			//visitados.put(nodoActual.getId(), nodoActual);
 			if (prob.esObjetivo(nodoActual.getEstado()) == 0) { // AQUI SE PUEDE CAMBIAR LA FUNCION OBJETIVO CON BOOLEAN
 				solucion = true;
 			} else {
-				if (nodoActual.getProf() >= profundidad_maxima)
-					max = false;
-				else {
+				//if (nodoActual.getProf() >= profundidad_maxima)
+					//max = false;
+				//else {
 
 					ArrayList<Sucesor> sucesores = prob.getE().getSucesores(nodoActual.getEstado());
 					// valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
@@ -48,13 +48,15 @@ public class Operaciones {
 										prob.esObjetivo(sucesores.get(i).getEstado())),
 								nodoActual, sucesores.get(i).getAccion(), nodoActual.getProf() + 1);
 						// System.out.println(n);
+						//if(nodoActual.getProf() + 1<profundidad_maxima)
 						if ((visitados.containsKey(n.getId()) && visitados.get(n.getId()).getValor() > n.getValor() )|| !visitados.containsKey(n.getId())) {
 							frontera.insertar(n);
 							visitados.put(n.getId(), n);
 						}
 					}
+					//System.out.println(frontera);
 				}
-			}
+			//}
 			//System.out.println(frontera);
 		}
 		
@@ -99,7 +101,7 @@ public class Operaciones {
 			valor = heuristica;
 			break;
 		default:
-			System.out.println("La estrategia elegida es errónea");
+			System.out.println("La estrategia elegida es erronea");
 		}
 
 		return valor;

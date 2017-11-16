@@ -65,6 +65,25 @@ public class gestionArchivo {
 			e.printStackTrace();
 		}
 	}
+	public void escribirArchivo(String path, int costoTotal,boolean escribir) {
+		File file = new File(path);
+		try {
+			FileWriter fw = new FileWriter(file, escribir);
+			BufferedWriter bw = new BufferedWriter(fw);
+			// bw.newLine();
+			// bw.write("------------------");
+			// bw.newLine();
+			
+			bw.write("Coste total del algoritmo: "+costoTotal+ "\n");
+			bw.newLine();
+			
+			bw.close();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static void imprimir(int[][] solar) {
 		for (int i = 0; i < solar.length; i++) {
