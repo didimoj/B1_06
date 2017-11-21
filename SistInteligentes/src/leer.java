@@ -62,7 +62,7 @@ public class leer{
                 vale=false; 
                 TECLADO.next();}
         }while (!vale);
-//        teclado.nextLine();
+        
         return res;
    
     }

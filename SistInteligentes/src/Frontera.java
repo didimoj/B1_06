@@ -1,11 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-
 import java.util.*;
+
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Frontera {
-	
 
 	PriorityQueue<Nodo> lista;
 
@@ -13,10 +14,6 @@ public class Frontera {
 		lista = new PriorityQueue<Nodo>(100);
 	}
 
-	/*
-	 * public LinkedList<Nodo> creaFrontera() { lista = new LinkedList<Nodo>();
-	 * //Criterio de ordenacion return lista; }
-	 */
 	public void insertar(Nodo nodo) {
 		lista.add(nodo);
 	}
@@ -29,13 +26,14 @@ public class Frontera {
 	public boolean esVacia() {
 		return lista.isEmpty();
 	}
+
 	@Override
 	public String toString() {
-		String s="";
-		Iterator<Nodo> it=lista.iterator();
-		while(it.hasNext())
-			s+=" "+it.next().getValor();
-		return "Frontera = ["+s+"]";
+		String s = "";
+		Iterator<Nodo> it = lista.iterator();
+		while (it.hasNext())
+			s += " " + it.next().getValor();
+		return "Frontera = [" + s + "]";
 	}
-	
+
 }

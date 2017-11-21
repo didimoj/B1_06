@@ -5,10 +5,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class gestionArchivo {
 
+/**
+ * 
+ * @param file
+ * @return null
+ */
 	public Estado cargarArchivo(String file) {
 		int x, y, k, max, c, f;
+		
 		try {
 			FileReader fr = new FileReader(new File(file));
 			Scanner pantalla = new Scanner(fr);
@@ -30,7 +41,7 @@ public class gestionArchivo {
 			if (cantidad == c * f * k) {
 				imprimir(terreno);
 
-				Terreno t = new Terreno(/* x, y, */k, max, terreno);
+				Terreno t = new Terreno(k, max, terreno);
 
 				Estado e = new Estado(t, x, y);
 				return e;
@@ -38,53 +49,56 @@ public class gestionArchivo {
 				System.out.println("La cantidad de arena a distribuir no es correcta");
 			}
 
-			// escribirArchivo("terreno.txt",0,3,3,12,3,3,terreno);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
-
 	}
-
-	public void escribirArchivo(String path, Nodo nodo,boolean escribir) {
+/**
+ * 
+ * @param path
+ * @param nodo
+ * @param escribir
+ */
+	public void escribirArchivo(String path, Nodo nodo, boolean escribir) {
 		File file = new File(path);
 		try {
 			FileWriter fw = new FileWriter(file, escribir);
 			BufferedWriter bw = new BufferedWriter(fw);
-			// bw.newLine();
-			// bw.write("------------------");
-			// bw.newLine();
-			if (nodo.getAccion()!=null)
-				bw.write(nodo.getAccion().toString()+" "+nodo.getValor()+" "+nodo.getProf()+" "+nodo.getCosto() + "\n"+nodo.getEstado()+"\n");
+			if (nodo.getAccion() != null)
+				bw.write(nodo.getAccion().toString() + " " + nodo.getValor() + " " + nodo.getProf() + " "
+						+ nodo.getCosto() + "\n" + nodo.getEstado() + "\n");
 			bw.newLine();
-			
 			bw.close();
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void escribirArchivo(String path, int costoTotal,boolean escribir) {
+/**
+ * @param path
+ * @param costoTotal
+ * @param escribir
+ * Metodo para escribir el coste total en el ficher
+ */
+	public void escribirArchivo(String path, int costoTotal, boolean escribir) {
 		File file = new File(path);
 		try {
 			FileWriter fw = new FileWriter(file, escribir);
 			BufferedWriter bw = new BufferedWriter(fw);
-			// bw.newLine();
-			// bw.write("------------------");
-			// bw.newLine();
-			
-			bw.write("Coste total del algoritmo: "+costoTotal+ "\n");
+			bw.write("Coste total del algoritmo: " + costoTotal + "\n");
 			bw.newLine();
-			
+
 			bw.close();
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * 
+ * @param solar
+ */
 	public static void imprimir(int[][] solar) {
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar.length; j++) {

@@ -1,66 +1,67 @@
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Operaciones {
 
 	public Operaciones() {
 	}
 
+	/**
+	 * 
+	 * @param prob
+	 * @param estrategia
+	 * @param profundidad_maxima
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	public Queue<Nodo> busquedaAcotada(Problema prob, String estrategia, int profundidad_maxima)
 			throws NoSuchAlgorithmException {
 		Frontera frontera = new Frontera();
 		Nodo nodoInicial = new Nodo(prob.getId(prob.getEstInicial()), prob.getEstInicial(), 0,
 				tipoEstrategia(estrategia, profundidad_maxima, 0, 0, 0, prob.esObjetivo(prob.getEstInicial())), null,
 				null, 0);
-		//ArrayList<Nodo> listaNodos;
 		boolean solucion = false;
 		Nodo nodoActual = new Nodo();
-		//int valor = 0;
 		Hashtable<String, Nodo> visitados = new Hashtable<String, Nodo>();
 		frontera.insertar(nodoInicial);
-		boolean max = true;
-		while (solucion == false && !frontera.esVacia()/* && max*/) {
+		while (solucion == false && !frontera.esVacia()) {
 			nodoActual = frontera.eliminar();
-		//	visitados.put(nodoActual.getId(), nodoActual);
-			
-			if (prob.esObjetivo(nodoActual.getEstado()) == 0) { // AQUI SE PUEDE CAMBIAR LA FUNCION OBJETIVO CON BOOLEAN
+
+			if (prob.esObjetivo(nodoActual.getEstado()) == 0) {
 				solucion = true;
 			} else {
-				
+
 				if (nodoActual.getProf() < profundidad_maxima) {
-				
 
 					ArrayList<Sucesor> sucesores = prob.getE().getSucesores(nodoActual.getEstado());
-					// valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
-					// nodoActual.getProf());
-					// frontera.insertar(sucesores);
 					for (int i = 0; i < sucesores.size(); i++) {
-						Nodo n = new Nodo(prob.getId(sucesores.get(i).getEstado()), sucesores.get(i).getEstado(),
+						Nodo nodo = new Nodo(prob.getId(sucesores.get(i).getEstado()), sucesores.get(i).getEstado(),
 								nodoActual.getCosto() + sucesores.get(i).getAccion().getCosto(),
 								tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
 										nodoActual.getProf() + 1, sucesores.get(i).getAccion().getCosto(),
 										prob.esObjetivo(sucesores.get(i).getEstado())),
 								nodoActual, sucesores.get(i).getAccion(), nodoActual.getProf() + 1);
-						// System.out.println(n);
-						//if(nodoActual.getProf() + 1<profundidad_maxima)
-						if ((visitados.containsKey(n.getId()) && visitados.get(n.getId()).getValor() > n.getValor() )|| !visitados.containsKey(n.getId())) {
-							frontera.insertar(n);
-							visitados.put(n.getId(), n);
+
+						if ((visitados.containsKey(nodo.getId())
+								&& visitados.get(nodo.getId()).getValor() > nodo.getValor())
+								|| !visitados.containsKey(nodo.getId())) {
+							frontera.insertar(nodo);
+							visitados.put(nodo.getId(), nodo);
 						}
 					}
-					//System.out.println(frontera);
 				}
 			}
-			//System.out.println(frontera);
 		}
-		
+
 		if (solucion) {
 			return getSolucion(nodoActual);
 		} else {
@@ -69,6 +70,15 @@ public class Operaciones {
 
 	}
 
+	/**
+	 * 
+	 * @param prob
+	 * @param estrategia
+	 * @param prof_max
+	 * @param inc_prof
+	 * @return solucion
+	 * @throws NoSuchAlgorithmException
+	 */
 	public Queue<Nodo> busquedaIterativa(Problema prob, String estrategia, int prof_max, int inc_prof)
 			throws NoSuchAlgorithmException {
 		int prof_act = prof_max;
@@ -81,11 +91,20 @@ public class Operaciones {
 
 		return solucion;
 	}
-
-	public int tipoEstrategia(String est, int prof_max, int coste_act, int prof_act, int c, int heuristica) {
+	/**
+	 * 
+	 * @param estra
+	 * @param prof_max
+	 * @param coste_act
+	 * @param prof_act
+	 * @param coste
+	 * @param heuristica
+	 * @return valor
+	 */
+	public int tipoEstrategia(String estra, int prof_max, int coste_act, int prof_act, int coste, int heuristica) {
 		int valor = 0;
 
-		switch (est) {
+		switch (estra) {
 		case "DFS":
 			valor = prof_max - prof_act;
 			break;
@@ -93,10 +112,10 @@ public class Operaciones {
 			valor = prof_act;
 			break;
 		case "CU":
-			valor = coste_act + c;
+			valor = coste_act + coste;
 			break;
 		case "A":
-			valor = coste_act + c + heuristica;
+			valor = coste_act + coste + heuristica;
 			break;
 		case "VORAZ":
 			valor = heuristica;
@@ -116,7 +135,6 @@ public class Operaciones {
 			pila.add(nodo);
 			nodo = nodo.getParent();
 		}
-		// System.out.println("pila:" + pila.size());
 		while (!pila.isEmpty()) {
 			cola.add(pila.pop());
 		}

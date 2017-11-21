@@ -1,43 +1,39 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Estado {
-	private Terreno t;
+	private Terreno terreno;
 	private int tractorX;
 	private int tractorY;
 
 	public Estado(Terreno t, int tractorx, int tractory) {
-		this.t = t;
+		terreno = t;
 		this.tractorX = tractorx;
 		this.tractorY = tractory;
 	}
 
 	public Terreno getTerreno() {
-		return t;
-	}
-	/*
-	public int getCosto(Acciones a) {
-		int costo = 0;
-		for (int i = 0; i < a.getDist().length; i++)
-			costo += a.getDist()[i];
-		return costo + 1;
-	}
-*/
-	@Override
-	public String toString() {
-		return "("+getTractorX() + ", " + getTractorY() + ")\n"+imprimir(t.getTerreno());
+		return terreno;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + getTractorX() + ", " + getTractorY() + ")\n" + imprimir(terreno.getTerreno());
+	}
+/**
+ * 
+ * @param solar
+ * @return s
+ */
 	public String imprimir(int[][] solar) {
 		String s = "\t";
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar.length; j++) {
-				// System.out.print(solar[i][j] + "\t");
 				s += solar[i][j] + " ";
 			}
 			s += "\n\t";
-			// System.out.println();
 		}
 		return s;
 	}

@@ -1,5 +1,8 @@
-
-
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Nodo implements Comparable<Nodo> {
 	private String id;
 	private Estado estado;
@@ -18,8 +21,9 @@ public class Nodo implements Comparable<Nodo> {
 		accion = a;
 		parent = p;
 	}
+
 	public Nodo() {
-		
+
 	}
 
 	public String getId() {
@@ -50,7 +54,6 @@ public class Nodo implements Comparable<Nodo> {
 		return valor;
 	}
 
-	
 	public Nodo getParent() {
 		return parent;
 	}
