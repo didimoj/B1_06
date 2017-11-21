@@ -37,7 +37,8 @@ public class Acciones {
 	public String toString() {
 		String s="";
 		for(int i=0;i<casillas.size();i++)
-			s+=dist[i]+",("+Arrays.toString(casillas.get(i))+") ";
-		return "Acciones [Movimiento=" + Arrays.toString(mov) + ", Distribucion= [ " + s + "] , Coste: "+getCosto();
+			s+="("+dist[i]+",("+Arrays.toString(casillas.get(i))+") ";
+		return "(("+ Arrays.toString(mov)+"), ["+s+"], "+getCosto()+")";
+		//return "Acciones [Movimiento=" + Arrays.toString(mov) + ", Distribucion= [ " + s + "] , Coste: "+getCosto();
 	}
 }

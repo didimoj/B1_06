@@ -28,13 +28,14 @@ public class Operaciones {
 		boolean max = true;
 		while (solucion == false && !frontera.esVacia()/* && max*/) {
 			nodoActual = frontera.eliminar();
-			//visitados.put(nodoActual.getId(), nodoActual);
+		//	visitados.put(nodoActual.getId(), nodoActual);
+			
 			if (prob.esObjetivo(nodoActual.getEstado()) == 0) { // AQUI SE PUEDE CAMBIAR LA FUNCION OBJETIVO CON BOOLEAN
 				solucion = true;
 			} else {
-				//if (nodoActual.getProf() >= profundidad_maxima)
-					//max = false;
-				//else {
+				
+				if (nodoActual.getProf() < profundidad_maxima) {
+				
 
 					ArrayList<Sucesor> sucesores = prob.getE().getSucesores(nodoActual.getEstado());
 					// valor = tipoEstrategia(estrategia, profundidad_maxima, nodoActual.getCosto(),
@@ -56,7 +57,7 @@ public class Operaciones {
 					}
 					//System.out.println(frontera);
 				}
-			//}
+			}
 			//System.out.println(frontera);
 		}
 		
@@ -73,7 +74,7 @@ public class Operaciones {
 		int prof_act = prof_max;
 		Queue<Nodo> solucion = null;
 
-		while (solucion == null/* && prof_act <= prof_max */) {
+		while (solucion == null && prof_act <= prof_max) {
 			solucion = busquedaAcotada(prob, estrategia, prof_act);
 			prof_act += inc_prof;
 		}
@@ -94,7 +95,7 @@ public class Operaciones {
 		case "CU":
 			valor = coste_act + c;
 			break;
-		case "A*":
+		case "A":
 			valor = coste_act + c + heuristica;
 			break;
 		case "VORAZ":

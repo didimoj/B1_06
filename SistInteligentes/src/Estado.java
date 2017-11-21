@@ -26,17 +26,17 @@ public class Estado {
 */
 	@Override
 	public String toString() {
-		return imprimir(t.getTerreno()) + "\n(" + getTractorX() + ", " + getTractorY() + ")";
+		return "("+getTractorX() + ", " + getTractorY() + ")\n"+imprimir(t.getTerreno());
 	}
 
 	public String imprimir(int[][] solar) {
-		String s = "";
+		String s = "\t";
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar.length; j++) {
 				// System.out.print(solar[i][j] + "\t");
 				s += solar[i][j] + " ";
 			}
-			s += "\n";
+			s += "\n\t";
 			// System.out.println();
 		}
 		return s;

@@ -55,7 +55,7 @@ public class gestionArchivo {
 			// bw.write("------------------");
 			// bw.newLine();
 			if (nodo.getAccion()!=null)
-				bw.write(nodo.getAccion().toString() + "\n");
+				bw.write(nodo.getAccion().toString()+" "+nodo.getValor()+" "+nodo.getProf()+" "+nodo.getCosto() + "\n"+nodo.getEstado()+"\n");
 			bw.newLine();
 			
 			bw.close();

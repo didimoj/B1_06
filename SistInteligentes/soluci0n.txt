@@ -1,17 +1,21 @@
 
-Acciones [Movimiento=[1, 0], Distribucion= [ 0,([1, 0]) 0,([0, 1]) ] , Coste: 1
+(([0, 1]), [(0,([0, 1]) (0,([2, 1]) (0,([1, 0]) (0,([1, 2]) ], 1) 9 1 1
 
-Acciones [Movimiento=[2, 0], Distribucion= [ 0,([0, 0]) 0,([2, 0]) 0,([1, 1]) ] , Coste: 1
+(([0, 2]), [(0,([0, 0]) (1,([0, 2]) (1,([1, 1]) ], 3) 10 2 4
 
-Acciones [Movimiento=[1, 0], Distribucion= [ 1,([1, 0]) 1,([2, 1]) ] , Coste: 3
+(([1, 2]), [(2,([1, 2]) (0,([0, 1]) ], 3) 12 3 7
 
-Acciones [Movimiento=[1, 1], Distribucion= [ 1,([0, 0]) 0,([2, 0]) 0,([1, 1]) ] , Coste: 2
+(([1, 1]), [(0,([0, 2]) (1,([2, 2]) (0,([1, 1]) ], 2) 12 4 9
 
-Acciones [Movimiento=[1, 2], Distribucion= [ 0,([0, 1]) 0,([2, 1]) 0,([1, 0]) 0,([1, 2]) ] , Coste: 1
+(([1, 0]), [(0,([0, 1]) (0,([2, 1]) (0,([1, 0]) (0,([1, 2]) ], 1) 13 5 10
 
-Acciones [Movimiento=[0, 2], Distribucion= [ 0,([0, 2]) 0,([2, 2]) 1,([1, 1]) ] , Coste: 2
+(([0, 0]), [(0,([0, 0]) (0,([2, 0]) (0,([1, 1]) ], 1) 14 6 11
 
-Acciones [Movimiento=[1, 2], Distribucion= [ 0,([1, 2]) 2,([0, 1]) ] , Coste: 3
+(([1, 0]), [(2,([1, 0]) (0,([0, 1]) ], 3) 16 7 14
 
-Coste total del algoritmo: 13
+(([0, 0]), [(0,([0, 0]) (1,([2, 0]) (0,([1, 1]) ], 2) 16 8 16
+
+Coste total del algoritmo: 16
+
+Coste total del algoritmo: 16
 
