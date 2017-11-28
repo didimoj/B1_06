@@ -8,63 +8,63 @@ import java.util.Arrays;
 public class EspacioEstados {
 /**
  * 
- * @param l
- * @param a
- * @param e
+ * @param distribuciones
+ * @param accion
+ * @param est
  * @return new Estado
  */
-	public Estado crearEstado(ArrayList<int[]> l, Acciones a, Estado e) {
+	public Estado crearEstado(ArrayList<int[]> distribuciones, Acciones accion, Estado est) {
 
-		int[][] nuevo = new int[e.getTerreno().size() + 1][e.getTerreno().size() + 1];
+		int[][] nuevo = new int[est.getTerreno().size() + 1][est.getTerreno().size() + 1];
 		for (int f = 0; f < nuevo.length; f++) {
 			for (int c = 0; c < nuevo.length; c++) {
-				nuevo[f][c] = e.getTerreno().getCantidad(f, c);
+				nuevo[f][c] = est.getTerreno().getCantidad(f, c);
 			}
 		}
 
-		for (int i = 0; i < l.size(); i++) {
-			nuevo[l.get(i)[0]][l.get(i)[1]] = e.getTerreno().getCantidad(l.get(i)[0], l.get(i)[1]) + a.getDist()[i];
+		for (int i = 0; i < distribuciones.size(); i++) {
+			nuevo[distribuciones.get(i)[0]][distribuciones.get(i)[1]] = est.getTerreno().getCantidad(distribuciones.get(i)[0], distribuciones.get(i)[1]) + accion.getDist()[i];
 		}
 
-		if (nuevo[e.getTractorX()][e.getTractorY()] > e.getTerreno().K())
-			nuevo[e.getTractorX()][e.getTractorY()] = e.getTerreno().K();
+		if (nuevo[est.getTractorX()][est.getTractorY()] > est.getTerreno().K())
+			nuevo[est.getTractorX()][est.getTractorY()] = est.getTerreno().K();
 
-		return new Estado(new Terreno(e.getTerreno().K(), e.getTerreno().Max(), nuevo), a.getMov()[0], a.getMov()[1]);
+		return new Estado(new Terreno(est.getTerreno().K(), est.getTerreno().Max(), nuevo), accion.getMov()[0], accion.getMov()[1]);
 	}
 /**
  * 
- * @param e
+ * @param est
  * @return sucesores
  */
-	public ArrayList<Sucesor> getSucesores(Estado e) {
-		ArrayList<int[]> l = crearLista(e);
-		ArrayList<int[]> todas = new ArrayList<>();
+	public ArrayList<Sucesor> getSucesores(Estado est) {
+		ArrayList<int[]> distribuciones = crearLista(est);
+		ArrayList<int[]> posiciones = new ArrayList<>();
 		int cant;
-		if ((e.getTerreno().getCantidad(e.getTractorX(), e.getTractorY()) > e.getTerreno().K()))
-			cant = (e.getTerreno().getCantidad(e.getTractorX(), e.getTractorY()) - e.getTerreno().K());
+		if ((est.getTerreno().getCantidad(est.getTractorX(), est.getTractorY()) > est.getTerreno().K()))
+			cant = (est.getTerreno().getCantidad(est.getTractorX(), est.getTractorY()) - est.getTerreno().K());
 		else
 			cant = 0;
 
-		todas = back(new int[l.size()], 0, todas, cant, l.size(), l, e);
+		posiciones = back(new int[distribuciones.size()], 0, posiciones, cant, distribuciones.size(), distribuciones, est);
 
-		ArrayList<Acciones> candidatos = Distpos(l, todas);
+		ArrayList<Acciones> candidatos = Distpos(distribuciones, posiciones);
 		ArrayList<Sucesor> sucesores = new ArrayList<>();
 		for (int k = 0; k < candidatos.size(); k++)
-			sucesores.add(new Sucesor("acc" + k, candidatos.get(k), crearEstado(l, candidatos.get(k), e)));
+			sucesores.add(new Sucesor("acc" + k, candidatos.get(k), crearEstado(distribuciones, candidatos.get(k), est)));
 
 		return sucesores;
 	}
 /**
  * 
- * @param l
- * @param todas
+ * @param distribuciones
+ * @param posiciones
  * @return candidatos
  */
-	public ArrayList<Acciones> Distpos(ArrayList<int[]> l, ArrayList<int[]> todas) {
+	public ArrayList<Acciones> Distpos(ArrayList<int[]> distribuciones, ArrayList<int[]> posiciones) {
 		ArrayList<Acciones> candidatos = new ArrayList<>();
-		for (int i = 0; i < l.size(); i++) {
-			for (int j = 0; j < todas.size(); j++) {
-				Acciones a = new Acciones(l.get(i), todas.get(j), l);
+		for (int i = 0; i < distribuciones.size(); i++) {
+			for (int j = 0; j < posiciones.size(); j++) {
+				Acciones a = new Acciones(distribuciones.get(i), posiciones.get(j), distribuciones);
 				candidatos.add(a);
 
 			}
@@ -74,85 +74,85 @@ public class EspacioEstados {
 /**
  * 
  * @param is
- * @param l
- * @param e
+ * @param distribuciones
+ * @param est
  * @return flag
  */
-	private boolean esPosible(int[] is, ArrayList<int[]> l, Estado e) {
+	private boolean esPosible(int[] is, ArrayList<int[]> distribuciones, Estado est) {
 		boolean flag = true;
 		for (int i = 0; i < is.length; i++) {
-			if (e.getTerreno().getTerreno()[l.get(i)[0]][l.get(i)[1]] + is[i] > e.getTerreno().Max())
+			if (est.getTerreno().getTerreno()[distribuciones.get(i)[0]][distribuciones.get(i)[1]] + is[i] > est.getTerreno().Max())
 				flag = false;
 		}
 		return flag;
 	}
 /**
  * 
- * @param e
+ * @param est
  * @return lista
  */
-	public static ArrayList<int[]> crearLista(Estado e) {
+	public static ArrayList<int[]> crearLista(Estado est) {
 
 		ArrayList<int[]> lista = new ArrayList<int[]>();
 
 		/* Si el tractor esta en una esquina del terreno, tiene dos casillas donde poder colocar tierra */
 		
-		if (e.getTractorX() == 0 && e.getTractorY() == 0) { // Esquina superior izquierda
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
+		if (est.getTractorX() == 0 && est.getTractorY() == 0) { // Esquina superior izquierda
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
-		} else if (e.getTractorX() == 0 && e.getTractorY() == e.getTerreno().size()) { // Esquina inferior izquierda
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
+		} else if (est.getTractorX() == 0 && est.getTractorY() == est.getTerreno().size()) { // Esquina inferior izquierda
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
 
-		} else if (e.getTractorX() == e.getTerreno().size() && e.getTractorY() == 0) { // Esquina superior derecha
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
+		} else if (est.getTractorX() == est.getTerreno().size() && est.getTractorY() == 0) { // Esquina superior derecha
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
-		} else if (e.getTractorX() == e.getTerreno().size() && e.getTractorY() == e.getTerreno().size()) { // Esquina inferior derecha
+		} else if (est.getTractorX() == est.getTerreno().size() && est.getTractorY() == est.getTerreno().size()) { // Esquina inferior derecha
 
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
 		}
 
 		/* Si el tractor esta en el borde izquierdo, pero no en una esquina. Tiene tres casillas donde poder colocar tierra */
 		
-		else if (e.getTractorX() == 0 && e.getTractorY() != 0 && e.getTractorY() != e.getTerreno().size()) { // Lateral
+		else if (est.getTractorX() == 0 && est.getTractorY() != 0 && est.getTractorY() != est.getTerreno().size()) { // Lateral
 																												// izquierdo
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 
 		/* Si el tractor esta en el borde derecho, pero no en una esquina. Tiene tres casillas donde poder colocar tierra */
 			
-		} else if (e.getTractorX() == e.getTerreno().size() && e.getTractorY() != 0
-				&& e.getTractorY() != e.getTerreno().size()) { // Lateral derecho
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
+		} else if (est.getTractorX() == est.getTerreno().size() && est.getTractorY() != 0
+				&& est.getTractorY() != est.getTerreno().size()) { // Lateral derecho
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
 		
 		/* Si el tractor esta en el borde de arriba, pero no en una esquina. Tiene tres casillas donde poder colocar tierra */
 			
-		} else if (e.getTractorY() == 0 && e.getTractorX() != 0 && e.getTractorX() != e.getTerreno().size()) { // Arriba
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
+		} else if (est.getTractorY() == 0 && est.getTractorX() != 0 && est.getTractorX() != est.getTerreno().size()) { // Arriba
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 			
 		/* Si el tractor esta en el borde de abajo, pero no en una esquina. Tiene tres casillas donde poder colocar tierra */
 			
-		} else if (e.getTractorY() == e.getTerreno().size() && e.getTractorX() != 0
-				&& e.getTractorX() != e.getTerreno().size()) { // Abajo
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
+		} else if (est.getTractorY() == est.getTerreno().size() && est.getTractorX() != 0
+				&& est.getTractorX() != est.getTerreno().size()) { // Abajo
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
 			
 		/* Si el tractor esta en la mitad del terreno, tiene cuatro casillas donde poder colocar tierra */
 			
 		} else {
-			lista.add(new int[] { (e.getTractorX() - 1), e.getTractorY() });
-			lista.add(new int[] { (e.getTractorX() + 1), e.getTractorY() });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() - 1) });
-			lista.add(new int[] { e.getTractorX(), (e.getTractorY() + 1) });
+			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
+			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
+			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 		}
 		return lista;
 	}
@@ -163,14 +163,14 @@ public class EspacioEstados {
  * @param sol
  * @param max
  * @param ncasillas
- * @param l
- * @param e
+ * @param distribuciones
+ * @param est
  * @return sol
  */
-	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max, int ncasillas, ArrayList<int[]> l, Estado e) {
+	private ArrayList<int[]> back(int[] actual, int etapa, ArrayList<int[]> sol, int max, int ncasillas, ArrayList<int[]> distribuciones, Estado est) {
 		int[] copia = new int[actual.length];
 		if (etapa == ncasillas) {
-			if (suma(actual, ncasillas, max) && esPosible(actual, l, e)) {
+			if (suma(actual, ncasillas, max) && esPosible(actual, distribuciones, est)) {
 				System.arraycopy(actual, 0, copia, 0, actual.length);
 				Arrays.toString(copia);
 				sol.add(copia);
@@ -179,7 +179,7 @@ public class EspacioEstados {
 		} else {
 			for (int cantidad = 0; cantidad <= max; cantidad++) {
 				actual[etapa] = cantidad;
-				back(actual, etapa + 1, sol, max, ncasillas, l, e);
+				back(actual, etapa + 1, sol, max, ncasillas, distribuciones, est);
 			}
 		}
 		return sol;
