@@ -30,6 +30,7 @@ public class Menu {
 			}
 			archivo.escribirArchivo(file, contador, escribir);
 			long t1 = System.currentTimeMillis();
+			// añadir aquí abrirArchivo
 			abrirArchivo(estrategia + "_sol.txt");
 			System.out.println("Ejecutado en " + (t1 - t0) + " ms");
 
