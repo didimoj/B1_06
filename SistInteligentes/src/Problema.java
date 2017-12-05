@@ -30,9 +30,11 @@ public class Problema {
 	 */
 	public int esObjetivo(Estado est) {
 		int heuristica = 0;
+		System.out.println(".."+est.getTerreno().size());
+		System.out.println("..."+est.getTerreno().getTerreno().length);
 
-		for (int i = 0; i < est.getTerreno().size() + 1; i++) {
-			for (int j = 0; j < est.getTerreno().size() + 1; j++) {
+		for (int i = 0; i < est.getTerreno().getTerreno().length; i++) {
+			for (int j = 0; j < est.getTerreno().size(); j++) {
 				if (est.getTerreno().getCantidad(i, j) != est.getTerreno().K())
 					heuristica++;
 			}

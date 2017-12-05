@@ -30,7 +30,7 @@ public class Estado {
 	public String imprimir(int[][] solar) {
 		String s = "\t";
 		for (int i = 0; i < solar.length; i++) {
-			for (int j = 0; j < solar.length; j++) {
+			for (int j = 0; j <  solar[0].length; j++) {
 				s += solar[i][j] + " ";
 			}
 			s += "\n\t";

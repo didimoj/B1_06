@@ -11,7 +11,9 @@ public class Menu {
 	public void realizarEstrategia(String estrategia, int prof_max) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
-		Estado estInicial = archivo.cargarArchivo("Problema.txt");
+
+		
+		Estado estInicial = archivo.cargarArchivo("terren0.txt");
 		Problema prob = new Problema(estInicial);
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 		Nodo nodo;
@@ -44,14 +46,14 @@ public class Menu {
 
 	public void menu() throws Exception {
 		int choose, prof_max;
-		boolean bandera = false;
+		boolean flag = false;
 		String estrategia = "";
 
 		do {
 			choose = leer.entero(
 					"\nElija la estrategia deseada:\n\n1. BFS (anchura)\n2. DFS (profundidad)\n3. Coste Uniforme\n4. A*\n5. Voraz\n6. Salir",
 					1, 6);
-			prof_max = leer.entero("Indique la profundidad máxima deseada: ");
+			
 			switch (choose) {
 			case 1:
 				estrategia = "BFS";
@@ -69,16 +71,17 @@ public class Menu {
 				estrategia = "VORAZ";
 				break;
 			case 6:
-				bandera = true;
+				flag = true;
 				break;
 			}
 
-			if (!bandera) {
+			if (!flag) {
+				prof_max = leer.entero("Indique la profundidad máxima deseada: ");
 				realizarEstrategia(estrategia, prof_max);
 
 			}
 
-		} while (bandera == false);
+		} while (!flag);
 	}
 
 	public void abrirArchivo(String archivo) {

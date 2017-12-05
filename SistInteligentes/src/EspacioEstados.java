@@ -98,6 +98,7 @@ public class EspacioEstados {
 		/* Si el tractor esta en una esquina del terreno, tiene dos casillas donde poder colocar tierra */
 		
 		if (est.getTractorX() == 0 && est.getTractorY() == 0) { // Esquina superior izquierda
+			System.out.println(est.getTerreno().size());
 			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
