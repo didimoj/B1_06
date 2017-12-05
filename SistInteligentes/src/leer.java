@@ -1,5 +1,5 @@
 /** Clase para poder leer del teclado cualquier dato del tipo que sea de los siguientes:
-  * Entero, Double, Float, Cadena, Carácter, Boolean
+  * Entero, Double, Float, Cadena, Carï¿½cter, Boolean
   */
 
 
@@ -8,8 +8,8 @@ import java.util.*;
 public class leer{
 
     private static final Scanner TECLADO=new Scanner(System.in);
-    /** Define el teclado como estático para que no haya que crear ningún objeto de la clase
-      * Leer y así poder utilizar sus métodos
+    /** Define el teclado como estï¿½tico para que no haya que crear ningï¿½n objeto de la clase
+      * Leer y asï¿½ poder utilizar sus mï¿½todos
       */
       public static void p(String s){
           System.out.println(s);
@@ -41,7 +41,7 @@ public class leer{
 	public static int entero(String s, int min, int max)throws Exception{
 		int res;
 		do{
-			res=entero(s+" ["+min+","+max+"]");
+			res=entero(s);
 		}while(res<min || res>max);
 		return res;
 	}
@@ -62,7 +62,7 @@ public class leer{
                 vale=false; 
                 TECLADO.next();}
         }while (!vale);
-//        teclado.nextLine();
+        
         return res;
    
     }

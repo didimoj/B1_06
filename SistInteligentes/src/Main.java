@@ -1,17 +1,18 @@
-import java.security.NoSuchAlgorithmException;
 
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		gestionArchivo archivo=new gestionArchivo();
-		Estado estInicial=archivo.cargarArchivo("terren0.txt");
-		
-		Problema p=new Problema(estInicial);
-		
+
+		Menu menu = new Menu();
+
 		try {
-			p.getSolucion();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
+			menu.menu();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
