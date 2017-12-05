@@ -15,9 +15,9 @@ public class EspacioEstados {
  */
 	public Estado crearEstado(ArrayList<int[]> distribuciones, Acciones accion, Estado est) {
 
-		int[][] nuevo = new int[est.getTerreno().size() + 1][est.getTerreno().size() + 1];
+		int[][] nuevo = new int[est.getTerreno().getTerreno().length][est.getTerreno().getTerreno()[0].length];
 		for (int f = 0; f < nuevo.length; f++) {
-			for (int c = 0; c < nuevo.length; c++) {
+			for (int c = 0; c < nuevo[0].length; c++) {
 				nuevo[f][c] = est.getTerreno().getCantidad(f, c);
 			}
 		}
@@ -94,6 +94,8 @@ public class EspacioEstados {
 	public static ArrayList<int[]> crearLista(Estado est) {
 
 		ArrayList<int[]> lista = new ArrayList<int[]>();
+		System.out.println("Filas: "+est.getTerreno().getTerreno().length);
+		System.out.println("Columnas: "+est.getTerreno().getTerreno()[0].length);
 
 		/* Si el tractor esta en una esquina del terreno, tiene dos casillas donde poder colocar tierra */
 		
@@ -101,7 +103,7 @@ public class EspacioEstados {
 			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
-		} else if (est.getTractorX() == 0 && est.getTractorY() == est.getTerreno().size()) { // Esquina inferior izquierda
+		} else if (est.getTractorX() == 0 && est.getTractorY() == est.getTerreno().getTerreno().length - 1) { // Esquina inferior izquierda
 			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
 

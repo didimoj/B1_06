@@ -20,7 +20,7 @@ public class Menu {
 	public void realizarEstrategia(String estrategia, int prof_max) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
-		Estado estInicial = archivo.cargarArchivo("Problema.txt");
+		Estado estInicial = archivo.cargarArchivo("terren0.txt");
 		Problema prob = new Problema(estInicial);
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 		Nodo nodo;
