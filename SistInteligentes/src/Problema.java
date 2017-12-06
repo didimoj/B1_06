@@ -23,6 +23,7 @@ public class Problema {
 	public Estado getEstInicial() {
 		return estInicial;
 	}
+
 	/**
 	 * 
 	 * @param est
@@ -55,6 +56,7 @@ public class Problema {
 			return operacion.busquedaAcotada(this, estrategia, prof_max);
 
 	}
+
 	/**
 	 * 
 	 * @param estado

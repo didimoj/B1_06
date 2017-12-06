@@ -66,12 +66,6 @@ public class Nodo implements Comparable<Nodo> {
 		valor = v;
 	}
 
-	@Override
-	public String toString() {
-
-		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
-	}
-
 	public boolean equals(Object x) {
 		if (x instanceof Nodo && id == ((Nodo) x).getId())
 			;
@@ -88,6 +82,12 @@ public class Nodo implements Comparable<Nodo> {
 			resultado = 0;
 		}
 		return resultado;
+	}
+	
+	@Override
+	public String toString() {
+
+		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
 	}
 
 }

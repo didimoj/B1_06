@@ -18,26 +18,6 @@ public class Estado {
 		return terreno;
 	}
 
-	@Override
-	public String toString() {
-		return "(" + getTractorX() + ", " + getTractorY() + ")\n" + imprimir(terreno.getTerreno());
-	}
-/**
- * 
- * @param solar
- * @return s
- */
-	public String imprimir(int[][] solar) {
-		String s = "\t";
-		for (int i = 0; i < solar.length; i++) {
-			for (int j = 0; j < solar[0].length; j++) {
-				s += solar[i][j] + " ";
-			}
-			s += "\n\t";
-		}
-		return s;
-	}
-
 	public int getTractorX() {
 		return tractorX;
 	}
@@ -52,5 +32,26 @@ public class Estado {
 
 	public void setTractorY(int tractorY) {
 		this.tractorY = tractorY;
+	}
+
+	/**
+	 * 
+	 * @param solar
+	 * @return s
+	 */
+	public String imprimir(int[][] solar) {
+		String s = "\t";
+		for (int i = 0; i < solar.length; i++) {
+			for (int j = 0; j < solar[0].length; j++) {
+				s += solar[i][j] + " ";
+			}
+			s += "\n\t";
+		}
+		return s;
+	}
+
+	@Override
+	public String toString() {
+		return "(" + getTractorX() + ", " + getTractorY() + ")\n" + imprimir(terreno.getTerreno());
 	}
 }

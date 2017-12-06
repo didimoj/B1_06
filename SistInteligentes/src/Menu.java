@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * 
  * @author oscarjm97 didimojavier Alberto Gomez Leon
@@ -50,6 +51,7 @@ public class Menu {
 			System.out.println(e);
 		}
 	}
+
 	/**
 	 * 
 	 * @throws Exception
@@ -63,7 +65,7 @@ public class Menu {
 			choose = leer.entero(
 					"\nElija la estrategia deseada:\n\n1. BFS (anchura)\n2. DFS (profundidad)\n3. Coste Uniforme\n4. A*\n5. Voraz\n6. Salir",
 					1, 6);
-			prof_max = leer.entero("Indique la profundidad máxima deseada: ");
+
 			switch (choose) {
 			case 1:
 				estrategia = "BFS";
@@ -86,8 +88,8 @@ public class Menu {
 			}
 
 			if (!bandera) {
+				prof_max = leer.entero("Indique la profundidad mï¿½xima deseada: ");
 				realizarEstrategia(estrategia, prof_max);
-
 			}
 
 		} while (bandera == false);

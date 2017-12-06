@@ -6,11 +6,6 @@ import java.util.Arrays;
  *
  */
 public class Terreno {
-	@Override
-	public String toString() {
-		return "Terreno [terreno=" + Arrays.toString(terreno) + "]";
-	}
-
 	private int k;
 	private int max;
 	private int[][] terreno;
@@ -40,7 +35,13 @@ public class Terreno {
 	public int getFilas() {
 		return terreno.length;
 	}
+
 	public int getColumnas() {
 		return terreno[0].length;
+	}
+
+	@Override
+	public String toString() {
+		return "Terreno [terreno=" + Arrays.toString(terreno) + "]";
 	}
 }

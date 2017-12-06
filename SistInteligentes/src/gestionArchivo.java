@@ -12,14 +12,14 @@ import java.util.Scanner;
  */
 public class gestionArchivo {
 
-/**
- * 
- * @param file
- * @return null
- */
+	/**
+	 * 
+	 * @param file
+	 * @return null
+	 */
 	public Estado cargarArchivo(String file) {
 		int x, y, k, max, c, f;
-		
+
 		try {
 			FileReader fr = new FileReader(new File(file));
 			Scanner pantalla = new Scanner(fr);
@@ -54,12 +54,13 @@ public class gestionArchivo {
 		}
 		return null;
 	}
-/**
- * 
- * @param path
- * @param nodo
- * @param escribir
- */
+
+	/**
+	 * 
+	 * @param path
+	 * @param nodo
+	 * @param escribir
+	 */
 	public void escribirArchivo(String path, Nodo nodo, boolean escribir) {
 		File file = new File(path);
 		try {
@@ -75,12 +76,13 @@ public class gestionArchivo {
 			e.printStackTrace();
 		}
 	}
-/**
- * @param path
- * @param costoTotal
- * @param escribir
- * Metodo para escribir el coste total en el ficher
- */
+
+	/**
+	 * @param path
+	 * @param costoTotal
+	 * @param escribir
+	 *            Metodo para escribir el coste total en el ficher
+	 */
 	public void escribirArchivo(String path, int costoTotal, boolean escribir) {
 		File file = new File(path);
 		try {
@@ -95,10 +97,11 @@ public class gestionArchivo {
 			e.printStackTrace();
 		}
 	}
-/**
- * 
- * @param solar
- */
+
+	/**
+	 * 
+	 * @param solar
+	 */
 	public static void imprimir(int[][] solar) {
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar[0].length; j++) {
