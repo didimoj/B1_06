@@ -5,13 +5,22 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Menu {
-
+	/**
+	 * 
+	 * @param estrategia
+	 * @param prof_max
+	 * @throws FileNotFoundException
+	 */
 	public void realizarEstrategia(String estrategia, int prof_max) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
-		Estado estInicial = archivo.cargarArchivo("Problema.txt");
+		Estado estInicial = archivo.cargarArchivo("terren0.txt");
 		Problema prob = new Problema(estInicial);
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 		Nodo nodo;
@@ -41,7 +50,10 @@ public class Menu {
 			System.out.println(e);
 		}
 	}
-
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void menu() throws Exception {
 		int choose, prof_max;
 		boolean bandera = false;
@@ -51,7 +63,7 @@ public class Menu {
 			choose = leer.entero(
 					"\nElija la estrategia deseada:\n\n1. BFS (anchura)\n2. DFS (profundidad)\n3. Coste Uniforme\n4. A*\n5. Voraz\n6. Salir",
 					1, 6);
-			prof_max = leer.entero("Indique la profundidad m√°xima deseada: ");
+			prof_max = leer.entero("Indique la profundidad m·xima deseada: ");
 			switch (choose) {
 			case 1:
 				estrategia = "BFS";
