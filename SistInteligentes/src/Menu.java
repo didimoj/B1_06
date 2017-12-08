@@ -63,7 +63,7 @@ public class Menu {
 			choose = leer.entero(
 					"\nElija la estrategia deseada:\n\n1. BFS (anchura)\n2. DFS (profundidad)\n3. Coste Uniforme\n4. A*\n5. Voraz\n6. Salir",
 					1, 6);
-			prof_max = leer.entero("Indique la profundidad máxima deseada: ");
+			
 			switch (choose) {
 			case 1:
 				estrategia = "BFS";
@@ -86,6 +86,7 @@ public class Menu {
 			}
 
 			if (!bandera) {
+				prof_max = leer.entero("Indique la profundidad máxima deseada: ");
 				realizarEstrategia(estrategia, prof_max);
 
 			}
