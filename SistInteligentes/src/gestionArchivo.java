@@ -101,7 +101,7 @@ public class gestionArchivo {
  */
 	public static void imprimir(int[][] solar) {
 		for (int i = 0; i < solar.length; i++) {
-			for (int j = 0; j < solar.length; j++) {
+			for (int j = 0; j < solar[0].length; j++) {
 				System.out.print(solar[i][j] + "\t");
 			}
 			System.out.println();
