@@ -105,11 +105,12 @@ public class gestionArchivo {
  * @param solar
  */
 	public static void imprimir(int[][] solar) {
+		System.out.println("TERRENO:\n");
 		for (int i = 0; i < solar.length; i++) {
 			for (int j = 0; j < solar[0].length; j++) {
 				System.out.print(solar[i][j] + "\t");
 			}
 			System.out.println();
 		}
-	}
+		System.out.println("\n-------------------------------\n");	}
 }

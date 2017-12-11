@@ -23,6 +23,7 @@ public class Problema {
 	public Estado getEstInicial() {
 		return estInicial;
 	}
+
 	/**
 	 * 
 	 * @param est
@@ -49,10 +50,13 @@ public class Problema {
 	 */
 	public Queue<Nodo> getSolucion(String estrategia, int prof_max) throws NoSuchAlgorithmException {
 		Operaciones operacion = new Operaciones();
+		if (estrategia.equals("DFS"))
 			return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
-
+		else
+			return operacion.busquedaAcotada(this, estrategia, prof_max);
 
 	}
+
 	/**
 	 * 
 	 * @param estado
@@ -74,7 +78,7 @@ public class Problema {
 				h.append(Integer.toHexString(u));
 			}
 		}
-		
+
 		return h.toString();
 
 	}
