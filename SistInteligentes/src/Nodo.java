@@ -68,6 +68,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	@Override
 	public String toString() {
+
 		return "Nodo [id=" + id + ", estado=\n" + estado + " profundidad = " + prof + "]";
 	}
 

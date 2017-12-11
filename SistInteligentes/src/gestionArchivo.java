@@ -29,6 +29,7 @@ public class gestionArchivo {
 			max = pantalla.nextInt();
 			c = pantalla.nextInt();
 			f = pantalla.nextInt();
+			
 			int cantidad = 0;
 			int[][] terreno = new int[f][c];
 			for (int i = 0; i < f; i++) {
@@ -38,7 +39,8 @@ public class gestionArchivo {
 				}
 			}
 			pantalla.close();
-			if (cantidad == c * f * k) {
+			if(y<c && x<f)
+			if (cantidad == c * f * k ) {
 				imprimir(terreno);
 
 				Terreno t = new Terreno(k, max, terreno);
@@ -47,7 +49,10 @@ public class gestionArchivo {
 				return e;
 			} else {
 				System.out.println("La cantidad de arena a distribuir no es correcta");
-			}
+				System.exit(0);
+			}else
+				System.out.println("El tractor esta fuera de los limites del terreno");
+				System.exit(0);
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -101,7 +106,7 @@ public class gestionArchivo {
  */
 	public static void imprimir(int[][] solar) {
 		for (int i = 0; i < solar.length; i++) {
-			for (int j = 0; j < solar.length; j++) {
+			for (int j = 0; j < solar[0].length; j++) {
 				System.out.print(solar[i][j] + "\t");
 			}
 			System.out.println();

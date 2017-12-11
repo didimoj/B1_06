@@ -31,14 +31,15 @@ public class Problema {
 	public int esObjetivo(Estado est) {
 		int heuristica = 0;
 
-		for (int i = 0; i < est.getTerreno().size() + 1; i++) {
-			for (int j = 0; j < est.getTerreno().size() + 1; j++) {
+		for (int i = 0; i < est.getTerreno().getTerreno().length; i++) {
+			for (int j = 0; j < est.getTerreno().getTerreno()[0].length; j++) {
 				if (est.getTerreno().getCantidad(i, j) != est.getTerreno().K())
 					heuristica++;
 			}
 		}
 		return heuristica;
 	}
+
 	/**
 	 * 
 	 * @param estrategia
@@ -48,10 +49,9 @@ public class Problema {
 	 */
 	public Queue<Nodo> getSolucion(String estrategia, int prof_max) throws NoSuchAlgorithmException {
 		Operaciones operacion = new Operaciones();
-		if (estrategia.equals("DFS"))
 			return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
-		else
-			return operacion.busquedaAcotada(this, estrategia, prof_max);
+
+
 	}
 	/**
 	 * 
@@ -74,6 +74,7 @@ public class Problema {
 				h.append(Integer.toHexString(u));
 			}
 		}
+		
 		return h.toString();
 
 	}

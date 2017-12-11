@@ -5,13 +5,21 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-
+/**
+ * 
+ * @author oscarjm97 didimojavier Alberto Gomez Leon
+ *
+ */
 public class Menu {
-
-	public void realizarEstrategia(String estrategia, int prof_max) throws FileNotFoundException {
+	/**
+	 * 
+	 * @param estrategia
+	 * @param prof_max
+	 * @throws FileNotFoundException
+	 */
+	public void realizarEstrategia(String estrategia, int prof_max, String path,Estado estInicial) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
-		Estado estInicial = archivo.cargarArchivo("Problema.txt");
 		Problema prob = new Problema(estInicial);
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 		Nodo nodo;
@@ -36,22 +44,28 @@ public class Menu {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NullPointerException ex) {
-			System.out.println("\nNo se ha encontrado solución");
+			System.out.println("\nNo se ha encontrado solucion");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-
-	public void menu() throws Exception {
+	/**
+	 * 
+	 * @throws Exception
+	 */
+	
+	public void menu(String path) throws Exception {
 		int choose, prof_max;
 		boolean bandera = false;
 		String estrategia = "";
+		gestionArchivo archivo = new gestionArchivo();
+		Estado estInicial = archivo.cargarArchivo(path);
 
 		do {
 			choose = leer.entero(
 					"\nElija la estrategia deseada:\n\n1. BFS (anchura)\n2. DFS (profundidad)\n3. Coste Uniforme\n4. A*\n5. Voraz\n6. Salir",
 					1, 6);
-			prof_max = leer.entero("Indique la profundidad máxima deseada: ");
+			
 			switch (choose) {
 			case 1:
 				estrategia = "BFS";
@@ -74,7 +88,8 @@ public class Menu {
 			}
 
 			if (!bandera) {
-				realizarEstrategia(estrategia, prof_max);
+				prof_max = leer.entero("Indique la profundidad m�xima deseada: ");
+				realizarEstrategia(estrategia, prof_max,path,estInicial);
 
 			}
 
