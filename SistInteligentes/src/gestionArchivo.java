@@ -29,7 +29,7 @@ public class gestionArchivo {
 			max = pantalla.nextInt();
 			c = pantalla.nextInt();
 			f = pantalla.nextInt();
-			
+
 			int cantidad = 0;
 			int[][] terreno = new int[f][c];
 			for (int i = 0; i < f; i++) {
@@ -39,23 +39,25 @@ public class gestionArchivo {
 				}
 			}
 			pantalla.close();
-			if(y<c && x<f)
-			if (cantidad == c * f * k ) {
-				imprimir(terreno);
+			if (y < c && x < f)
+				if (cantidad == c * f * k) {
+					imprimir(terreno);
 
-				Terreno t = new Terreno(k, max, terreno);
+					Terreno t = new Terreno(k, max, terreno);
 
-				Estado e = new Estado(t, x, y);
-				return e;
-			} else {
-				System.out.println("La cantidad de arena a distribuir no es correcta");
-				System.exit(0);
-			}else
-				System.out.println("El tractor esta fuera de los limites del terreno");
-				System.exit(0);
+					Estado e = new Estado(t, x, y);
+					return e;
+				} else {
+					System.out.println("La cantidad de arena a distribuir no es correcta");
+					System.exit(0);
+				}
+			else
+				System.out.println("El tractor está fuera de los limites del terreno");
+			System.exit(0);
 
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("\nEl archivo especificado no es correcto. Programa finalizado.");
+			System.exit(0);
 		}
 		return null;
 	}

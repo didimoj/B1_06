@@ -11,8 +11,8 @@ public class Main {
 		Menu menu = new Menu();
 
 		try {
-			menu.menu(leer.cadena("Introduce el nombre del archivo"));
-			
+
+			menu.menu(leer.cadena("Introduce el nombre del archivo donde se encuentra el terreno"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

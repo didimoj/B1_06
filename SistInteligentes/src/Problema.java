@@ -50,7 +50,7 @@ public class Problema {
 	 */
 	public Queue<Nodo> getSolucion(String estrategia, int prof_max) throws NoSuchAlgorithmException {
 		Operaciones operacion = new Operaciones();
-			return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
+		return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class Problema {
 				h.append(Integer.toHexString(u));
 			}
 		}
-		
+
 		return h.toString();
 
 	}

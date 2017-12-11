@@ -18,7 +18,7 @@ public class Menu {
 	 * @param prof_max
 	 * @throws FileNotFoundException
 	 */
-	public void realizarEstrategia(String estrategia, int prof_max, String path,Estado estInicial) throws FileNotFoundException {
+	public void realizarEstrategia(String estrategia, int prof_max, String path, Estado estInicial) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
 		Problema prob = new Problema(estInicial);
@@ -55,7 +55,7 @@ public class Menu {
 	 * 
 	 * @throws Exception
 	 */
-	
+
 	public void menu(String path) throws Exception {
 		int choose, prof_max;
 		boolean bandera = false;
@@ -91,7 +91,7 @@ public class Menu {
 
 			if (!bandera) {
 				prof_max = leer.entero("Indique la profundidad m�xima deseada: ");
-				realizarEstrategia(estrategia, prof_max,path,estInicial);
+				realizarEstrategia(estrategia, prof_max, path, estInicial);
 			}
 
 		} while (bandera == false);
@@ -105,8 +105,8 @@ public class Menu {
 
 		} catch (IOException ex) {
 			System.out.println(ex);
+			System.exit(0);
 		}
-
 	}
 
 }
