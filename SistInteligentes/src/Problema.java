@@ -50,7 +50,11 @@ public class Problema {
 	 */
 	public Queue<Nodo> getSolucion(String estrategia, int prof_max) throws NoSuchAlgorithmException {
 		Operaciones operacion = new Operaciones();
-		return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
+
+		if (estrategia.equals("DFS"))
+			return operacion.busquedaIterativa(this, estrategia, prof_max, 10);
+		else
+			return operacion.busquedaAcotada(this, estrategia, prof_max);
 	}
 
 	/**
