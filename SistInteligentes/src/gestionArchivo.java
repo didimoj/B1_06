@@ -19,7 +19,7 @@ public class gestionArchivo {
  */
 	public Estado cargarArchivo(String file) {
 		int x, y, k, max, c, f;
-		
+		boolean maximo=false;
 		try {
 			FileReader fr = new FileReader(new File(file));
 			Scanner pantalla = new Scanner(fr);
@@ -29,16 +29,20 @@ public class gestionArchivo {
 			max = pantalla.nextInt();
 			c = pantalla.nextInt();
 			f = pantalla.nextInt();
+			
 			int cantidad = 0;
 			int[][] terreno = new int[f][c];
-			for (int i = 0; i < f; i++) {
-				for (int j = 0; j < c; j++) {
+			for (int i = 0; i < f && !maximo; i++) {
+				for (int j = 0; j < c && !maximo; j++) {
 					terreno[i][j] = pantalla.nextInt();
 					cantidad += terreno[i][j];
+					if(terreno[i][j]>max)
+						maximo=true;
 				}
 			}
 			pantalla.close();
-			if (cantidad == c * f * k) {
+			if(y<c && x<f)
+			if (cantidad == c * f * k ||  !maximo) {
 				imprimir(terreno);
 
 				Terreno t = new Terreno(k, max, terreno);
@@ -47,10 +51,15 @@ public class gestionArchivo {
 				return e;
 			} else {
 				System.out.println("La cantidad de arena a distribuir no es correcta");
-			}
+				System.exit(0);
+			}else
+				System.out.println("El tractor esta fuera de los limites del terreno");
+				System.exit(0);
+				
 
 		} catch (Exception e) {
 			System.out.println(e);
+			System.exit(0);
 		}
 		return null;
 	}
@@ -73,6 +82,7 @@ public class gestionArchivo {
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 	}
 /**
@@ -100,11 +110,12 @@ public class gestionArchivo {
  * @param solar
  */
 	public static void imprimir(int[][] solar) {
+		System.out.println("TERRENO:\n");
 		for (int i = 0; i < solar.length; i++) {
-			for (int j = 0; j < solar.length; j++) {
+			for (int j = 0; j < solar[0].length; j++) {
 				System.out.print(solar[i][j] + "\t");
 			}
 			System.out.println();
 		}
-	}
+		System.out.println("\n-------------------------------\n");	}
 }

@@ -81,7 +81,7 @@ public class Operaciones {
 	 */
 	public Queue<Nodo> busquedaIterativa(Problema prob, String estrategia, int prof_max, int inc_prof)
 			throws NoSuchAlgorithmException {
-		int prof_act = prof_max;
+		int prof_act = inc_prof;
 		Queue<Nodo> solucion = null;
 
 		while (solucion == null && prof_act <= prof_max) {
