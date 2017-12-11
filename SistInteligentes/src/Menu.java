@@ -18,10 +18,9 @@ public class Menu {
 	 * @param prof_max
 	 * @throws FileNotFoundException
 	 */
-	public void realizarEstrategia(String estrategia, int prof_max) throws FileNotFoundException {
+	public void realizarEstrategia(String estrategia, int prof_max, String path,Estado estInicial) throws FileNotFoundException {
 		int contador = 0;
 		gestionArchivo archivo = new gestionArchivo();
-		Estado estInicial = archivo.cargarArchivo("terren0.txt");
 		Problema prob = new Problema(estInicial);
 		Queue<Nodo> cola = new LinkedBlockingQueue<Nodo>();
 		Nodo nodo;
@@ -46,7 +45,7 @@ public class Menu {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NullPointerException ex) {
-			System.out.println("\nNo se ha encontrado solución");
+			System.out.println("\nNo se ha encontrado solucion");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -56,10 +55,13 @@ public class Menu {
 	 * 
 	 * @throws Exception
 	 */
-	public void menu() throws Exception {
+	
+	public void menu(String path) throws Exception {
 		int choose, prof_max;
 		boolean bandera = false;
 		String estrategia = "";
+		gestionArchivo archivo = new gestionArchivo();
+		Estado estInicial = archivo.cargarArchivo(path);
 
 		do {
 			choose = leer.entero(
@@ -89,7 +91,7 @@ public class Menu {
 
 			if (!bandera) {
 				prof_max = leer.entero("Indique la profundidad m�xima deseada: ");
-				realizarEstrategia(estrategia, prof_max);
+				realizarEstrategia(estrategia, prof_max,path,estInicial);
 			}
 
 		} while (bandera == false);

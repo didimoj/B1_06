@@ -111,19 +111,23 @@ public class EspacioEstados {
 		 */
 
 		if (est.getTractorX() == 0 && est.getTractorY() == 0) { // Esquina superior izquierda
-			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
-			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
+			if (est.getTractorX() + 1 <= est.getTerreno().getFilas() - 1)
+				lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			if (est.getTractorY() + 1 <= est.getTerreno().getColumnas() - 1)
+				lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
 		} else if (est.getTractorX() == est.getTerreno().getFilas() - 1 && est.getTractorY() == 0) { // Esquina inferior
 																										// izquierda
 			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
-			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
+			if (est.getTractorY() + 1 <= est.getTerreno().getColumnas() - 1)
+				lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
 		} else if (est.getTractorX() == 0 && est.getTractorY() == est.getTerreno().getColumnas() - 1) { // Esquina
 																										// superior
 																										// derecha
 			lista.add(new int[] { (est.getTractorX()), est.getTractorY() - 1 });
-			lista.add(new int[] { est.getTractorX() + 1, (est.getTractorY()) });
+			if (est.getTractorX() + 1 <= est.getTerreno().getFilas() - 1)
+				lista.add(new int[] { est.getTractorX() + 1, (est.getTractorY()) });
 
 		} else if (est.getTractorX() == est.getTerreno().getFilas() - 1
 				&& est.getTractorY() == est.getTerreno().getColumnas() - 1) { // Esquina inferior derecha
@@ -136,13 +140,13 @@ public class EspacioEstados {
 		 * Si el tractor esta en el borde izquierdo, pero no en una esquina. Tiene tres
 		 * casillas donde poder colocar tierra
 		 */
-
 		else if (est.getTractorX() == 0 && est.getTractorY() != 0
 				&& est.getTractorY() != est.getTerreno().getColumnas() - 1) { // Lateral
 			// arriba
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
-			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
+			if (est.getTractorX() + 1 <= est.getTerreno().getFilas() - 1)
+				lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 
 			/*
 			 * Si el tractor esta en el borde derecho, pero no en una esquina. Tiene tres
@@ -164,7 +168,8 @@ public class EspacioEstados {
 				&& est.getTractorX() != est.getTerreno().getFilas() - 1) { // izquierda
 			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
 			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
-			lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
+			if (est.getTractorY() + 1 <= est.getTerreno().getColumnas() - 1)
+				lista.add(new int[] { est.getTractorX(), (est.getTractorY() + 1) });
 
 			/*
 			 * Si el tractor esta en el borde de abajo, pero no en una esquina. Tiene tres
@@ -183,6 +188,7 @@ public class EspacioEstados {
 			 */
 
 		} else {
+
 			lista.add(new int[] { (est.getTractorX() - 1), est.getTractorY() });
 			lista.add(new int[] { (est.getTractorX() + 1), est.getTractorY() });
 			lista.add(new int[] { est.getTractorX(), (est.getTractorY() - 1) });
