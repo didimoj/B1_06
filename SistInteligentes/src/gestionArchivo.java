@@ -19,7 +19,7 @@ public class gestionArchivo {
  */
 	public Estado cargarArchivo(String file) {
 		int x, y, k, max, c, f;
-		
+		boolean maximo=false;
 		try {
 			FileReader fr = new FileReader(new File(file));
 			Scanner pantalla = new Scanner(fr);
@@ -32,15 +32,17 @@ public class gestionArchivo {
 			
 			int cantidad = 0;
 			int[][] terreno = new int[f][c];
-			for (int i = 0; i < f; i++) {
-				for (int j = 0; j < c; j++) {
+			for (int i = 0; i < f && !maximo; i++) {
+				for (int j = 0; j < c && !maximo; j++) {
 					terreno[i][j] = pantalla.nextInt();
 					cantidad += terreno[i][j];
+					if(terreno[i][j]>max)
+						maximo=true;
 				}
 			}
 			pantalla.close();
 			if(y<c && x<f)
-			if (cantidad == c * f * k ) {
+			if (cantidad == c * f * k ||  !maximo) {
 				imprimir(terreno);
 
 				Terreno t = new Terreno(k, max, terreno);
@@ -56,6 +58,7 @@ public class gestionArchivo {
 
 		} catch (Exception e) {
 			System.out.println(e);
+			System.exit(0);
 		}
 		return null;
 	}
@@ -78,6 +81,7 @@ public class gestionArchivo {
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 	}
 /**
