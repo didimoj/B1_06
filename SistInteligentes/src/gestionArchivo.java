@@ -55,6 +55,7 @@ public class gestionArchivo {
 			}else
 				System.out.println("El tractor esta fuera de los limites del terreno");
 				System.exit(0);
+				
 
 		} catch (Exception e) {
 			System.out.println(e);
