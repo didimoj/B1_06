@@ -37,7 +37,10 @@ public class Terreno {
 		return max;
 	}
 
-	public int size() {
-		return terreno[0].length - 1;
+	public int getFilas() {
+		return terreno.length;
+	}
+	public int getColumnas() {
+		return terreno[0].length;
 	}
 }
